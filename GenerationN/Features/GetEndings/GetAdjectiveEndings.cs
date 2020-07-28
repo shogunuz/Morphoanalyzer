@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GenerationN.GetEndings
 {
-    public class GetAdjectiveEndings : GetEndingsFromDB
+    public class GetAdjectiveEndings 
     {
-        internal override void AnalyzingWord(string str)
+        internal void AnalyzingWord(string str)
         {
             Console.WriteLine($"Adjective class: {str}");
         }

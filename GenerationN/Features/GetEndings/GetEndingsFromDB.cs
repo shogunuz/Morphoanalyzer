@@ -19,19 +19,14 @@ namespace GenerationN.Features
             this.Parent = parent;
         }
 
-        public string ReverseString(string word)
-        {
-            return Parent.ReverseString(word);
-        }
-
         public Dictionary<string, string> GettingEndings()
         {
             return Parent.GettingEndings();
         }
 
-        public string CalculationEndings(string reversedWord)
+        public Dictionary<string, string> CalculationEndings(int i)
         {
-            return Parent.CalculationEndings(reversedWord);
+            return Parent.CalculationEndings(i);
         }
 
     }

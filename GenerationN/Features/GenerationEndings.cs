@@ -17,10 +17,10 @@ namespace GenerationN.Features
         public GenerationEndings()
         {
             getEndings = new GetEndingsFromDB[Staticdatas.KindsOfEndings];
-            getEndings[0] = new GetNounEndings();
-            getEndings[1] = new GetVerbEndings();
-            getEndings[2] = new GetAdjectiveEndings();
-            getEndings[3] = new GetAdverbEndings();
+         //   getEndings[0] = new GetNounEndings();
+           // getEndings[1] = new GetVerbEndings();
+          //  getEndings[2] = new GetAdjectiveEndings();
+           // getEndings[3] = new GetAdverbEndings();
         }
 
         public void GetData(string str)
@@ -30,8 +30,8 @@ namespace GenerationN.Features
              * который и проходит по всем объектам чтобы найти окончания
              */
             
-             foreach (GetEndingsFromDB item in getEndings)
-                item.AnalyzingWord(str);
+           //  foreach (GetEndingsFromDB item in getEndings)
+              //  item.AnalyzingWord(str);
             
             //Можно также реализовать внутренний метод, он будет приватным
         }

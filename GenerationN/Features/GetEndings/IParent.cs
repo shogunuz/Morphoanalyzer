@@ -7,9 +7,9 @@ namespace GenerationN.GetEndings
 {
     public interface IParent
     {
-      
-       // string ReverseString(string word);
-        string CalculationEndings();
+
+        // string ReverseString(string word);
+        Dictionary<string, string> CalculationEndings(int i);
         Dictionary<string, string> GettingEndings();
     }
 }

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GenerationN.GetEndings
 {
-    public class GetAdverbEndings : GetEndingsFromDB
+    public class GetAdverbEndings 
     {
 
-        internal override void AnalyzingWord(string str)
+        internal void AnalyzingWord(string str)
         {
             Console.WriteLine($"Adverb class: {str}");
         }

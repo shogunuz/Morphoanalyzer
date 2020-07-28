@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using GenerationN.Features;
+using GenerationN.Features.StaticData;
+using GenerationN.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -18,10 +21,10 @@ namespace GenerationN
         public static void Main(string[] args)
         {
             //Console.WriteLine("sdasd");
-            GenerationEndings gt = new GenerationEndings();
-            gt.GetData("Vakhala");
+            //GenerationEndings gt = new GenerationEndings();
+          
+            // CreateHostBuilder(args).Build().Run();
             Console.ReadKey();
-           // CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

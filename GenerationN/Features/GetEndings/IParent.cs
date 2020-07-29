@@ -9,7 +9,7 @@ namespace GenerationN.GetEndings
     {
 
         // string ReverseString(string word);
-        Dictionary<string, string> CalculationEndings(int i);
+       void CalculationEndings(int i);
         Dictionary<string, string> GettingEndings();
     }
 }

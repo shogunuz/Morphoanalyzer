@@ -3,113 +3,91 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GenerationN.Features.StaticData;
-
+using GenerationN.Features.GetEndings;
 
 namespace GenerationN.GetEndings
 {
     public class GetNounEndings : IParent
     {
-        private Dictionary<string, string> dict { get; set; }
+        private Dictionary<string, string> Dict;
+       
         private string word;
-        public GetNounEndings(string word)
+        public GetNounEndings()
+        {
+            Dict = new Dictionary<string, string>();
+        }
+        public void SetWord(string word)
         {
             this.word = word;
         }
       
-        public Dictionary<string, string> CalculationEndings(int x)
+        public void CalculationEndings(int i)
         {
-            int k = 0;
-            switch (x)
+            
+            string strKey="", strValue="";
+            switch (i)
             {
                 case 1:
-                     foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsOne)
+                    foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsOne)
+                    {
+                        if (CalcLevelByLevel.LevelByLevel(kvp.Key, word, 0) == 1)
                         {
-                            char[] charArr = kvp.Key.ToArray();
-                            Array.Reverse(charArr);
-                            char[] wordArr = word.ToArray();
-                            Array.Reverse(wordArr);
-                            for(int y=0; y<charArr.Length; y++)
+                            if (strKey.Length < kvp.Key.Length)
                             {
-                                if (wordArr[y] == charArr[y])
-                                {
-                                    k++;
-                                }
-                            }
-                            if (k==charArr.Length)
-                            {
-                                dict = new Dictionary<string, string>
-                                {
-                                    {kvp.Key, kvp.Value }
-                                };
-                                Console.WriteLine($"{kvp.Key} : {kvp.Value}");
+                                strKey = kvp.Key;
+                                strValue = kvp.Value;
                             }
                         }
-                    
+                    }
                     break;
                 case 2:
-                        foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsTwo)
+                    foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsTwo)
+                    {
+                        if (CalcLevelByLevel.LevelByLevel(kvp.Key, word, 0) == 1)
                         {
-                            char[] charArr = kvp.Key.ToArray();
-                            Array.Reverse(charArr);
-                            char[] wordArr = word.ToArray();
-                            Array.Reverse(wordArr);
-                            for (int y = 0; y < charArr.Length; y++)
+                            if (strKey.Length < kvp.Key.Length)
                             {
-                                if (wordArr[y] == charArr[y])
-                                {
-                                    k++;
-                                }
-                            }
-                            if (k == charArr.Length)
-                            {
-                                dict = new Dictionary<string, string>
-                                {
-                                    {kvp.Key, kvp.Value }
-                                };
-                                Console.WriteLine($"{kvp.Key} : {kvp.Value}");
+                                strKey = kvp.Key;
+                                strValue = kvp.Value;
                             }
                         }
+
+                    }
                     break;
                 case 3:
-                        foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsThree)
+                    foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsThree)
+                    {
+                        if (CalcLevelByLevel.LevelByLevel(kvp.Key,  word, 0) == 1)
                         {
-                            char[] charArr = kvp.Key.ToArray();
-                            Array.Reverse(charArr);
-                            char[] wordArr = word.ToArray();
-                            Array.Reverse(wordArr);
-                            for (int y = 0; y < charArr.Length; y++)
+                            if (strKey.Length < kvp.Key.Length)
                             {
-                                if (wordArr[y] == charArr[y])
-                                {
-                                    k++;
-                                }
-                            }
-                            if (k == charArr.Length)
-                            {
-                                dict = new Dictionary<string, string>
-                                {
-                                    {kvp.Key, kvp.Value }
-                                };
-                                Console.WriteLine($"{kvp.Key} : {kvp.Value}");
+                                strKey = kvp.Key;
+                                strValue = kvp.Value;
                             }
                         }
-                    
+                    }
                     break;
                 default:
-                    return null;
                     break;
             }
-
-            return dict;
+            
+            if(string.IsNullOrEmpty(strKey)==false)
+            {
+                Dict.Add(strKey, strValue);
+                word = word.Remove(word.Length - strKey.Length);
+            }
         }
         public Dictionary<string, string> GettingEndings()
         {
-            for(int i=3; i>0; i--)
+            Console.WriteLine(word);
+            for (int i = 3; i > 0; i--)
             {
                 CalculationEndings(i);
             }
+            Dict.Add(word, "Основа слова");
+            
 
-            return dict;
+            return Dict;
         }
 
     }

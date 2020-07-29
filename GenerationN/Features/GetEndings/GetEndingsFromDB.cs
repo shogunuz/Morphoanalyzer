@@ -24,9 +24,9 @@ namespace GenerationN.Features
             return Parent.GettingEndings();
         }
 
-        public Dictionary<string, string> CalculationEndings(int i)
+        public void CalculationEndings(int i)
         {
-            return Parent.CalculationEndings(i);
+
         }
 
     }

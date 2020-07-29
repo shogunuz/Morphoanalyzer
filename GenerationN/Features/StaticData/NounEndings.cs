@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace GenerationN.Features.StaticData
 {
-    public class NoundEndings
+    public class NounEndings
     {
         internal static Dictionary<string, string> NounEndsOne = new Dictionary<string, string>()
         {

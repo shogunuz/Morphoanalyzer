@@ -28,7 +28,7 @@ namespace GenerationN.GetEndings
             switch (i)
             {
                 case 1:
-                    foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsOne)
+                    foreach (KeyValuePair<string, string> kvp in NounEndings.NounEndsOne)
                     {
                         if (CalcLevelByLevel.LevelByLevel(kvp.Key, word, 0) == 1)
                         {
@@ -41,7 +41,7 @@ namespace GenerationN.GetEndings
                     }
                     break;
                 case 2:
-                    foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsTwo)
+                    foreach (KeyValuePair<string, string> kvp in NounEndings.NounEndsTwo)
                     {
                         if (CalcLevelByLevel.LevelByLevel(kvp.Key, word, 0) == 1)
                         {
@@ -55,7 +55,7 @@ namespace GenerationN.GetEndings
                     }
                     break;
                 case 3:
-                    foreach (KeyValuePair<string, string> kvp in NoundEndings.NounEndsThree)
+                    foreach (KeyValuePair<string, string> kvp in NounEndings.NounEndsThree)
                     {
                         if (CalcLevelByLevel.LevelByLevel(kvp.Key,  word, 0) == 1)
                         {

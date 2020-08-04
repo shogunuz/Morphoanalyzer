@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace GenerationN.Features.SortAlgorithms
 {
-    public class SortEndings : IComparer<GetEndingsFromDB>
+    public class SortEndings //: IComparer<GetEndings>
     {
-        public int Compare([AllowNull] GetEndingsFromDB x, [AllowNull] GetEndingsFromDB y)
+        /*
+        public int Compare([AllowNull] GetEndings x, [AllowNull] GetEndings y)
         {
             throw new NotImplementedException();
         }
+        */
     }
 }

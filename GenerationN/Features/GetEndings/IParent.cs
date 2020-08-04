@@ -8,8 +8,9 @@ namespace GenerationN.GetEndings
     public interface IParent
     {
 
-        // string ReverseString(string word);
-       void CalculationEndings(int i);
+       
+        void CalculationEndings(int i);
         Dictionary<string, string> GettingEndings();
+        void KeyValue(string key, string value, int mode);
     }
 }

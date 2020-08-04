@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace GenerationN.Features
 {
   
-    public class GetEndingsFromDB
+    public class GetEndingsGeneral
     {
         public Dictionary<string, string> EndingDictionary { get; set; }
         public IParent Parent { get; set; }
 
-        public GetEndingsFromDB(IParent parent)
+        public GetEndingsGeneral(IParent parent)
         {
             this.Parent = parent;
         }
@@ -26,7 +26,12 @@ namespace GenerationN.Features
 
         public void CalculationEndings(int i)
         {
+            Parent.CalculationEndings(i);
+        }
 
+        public void KeyValue(string key, string value, int mode) 
+        {
+            Parent.KeyValue(key, value, mode);
         }
 
     }

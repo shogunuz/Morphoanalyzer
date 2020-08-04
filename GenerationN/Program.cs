@@ -22,11 +22,15 @@ namespace GenerationN
         public static void Main(string[] args)
         {
             // CreateHostBuilder(args).Build().Run();
-           // dict = new Dictionary<string, string>();
-            GetNounEndings getNoun = new GetNounEndings();
-            getNoun.SetWord("Bolalarimiz");
+
+            // GetNounEndings getNoun = new GetNounEndings();
+            string str = "mansabparast";
+            GetEndingsGeneral getEnds = new GetEndingsGeneral(
+                new GetNounEndings(str));
+            GetEndingsGeneral getEndsA = new GetEndingsGeneral(
+                new GetAdjectiveEndings(str));
            
-            foreach(KeyValuePair<string,string> kvp in getNoun.GettingEndings())
+            foreach(KeyValuePair<string,string> kvp in getEnds.GettingEndings())
             {
                 dict = new Dictionary<string, string>
                 {
@@ -34,6 +38,15 @@ namespace GenerationN
                 }; 
                 Console.WriteLine($"{kvp.Key}: {kvp.Value}");
             }
+            foreach (KeyValuePair<string, string> kvp in getEndsA.GettingEndings())
+            {
+                dict = new Dictionary<string, string>
+                {
+                    {kvp.Key, kvp.Value }
+                };
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
+
             Console.ReadKey();
         }
 

@@ -10,84 +10,73 @@ namespace GenerationN.GetEndings
     public class GetNounEndings : IParent
     {
         private Dictionary<string, string> Dict;
-       
+        private string strKey { get; set; }
+        private string strValue { get; set; }
+
         private string word;
-        public GetNounEndings()
+        public GetNounEndings(string word)
         {
             Dict = new Dictionary<string, string>();
-        }
-        public void SetWord(string word)
-        {
             this.word = word;
         }
       
         public void CalculationEndings(int i)
         {
-            
-            string strKey="", strValue="";
+            this.strKey = "";
+            this.strValue="";
+
             switch (i)
             {
                 case 1:
                     foreach (KeyValuePair<string, string> kvp in NounEndings.NounEndsOne)
                     {
-                        if (CalcLevelByLevel.LevelByLevel(kvp.Key, word, 0) == 1)
-                        {
-                            if (strKey.Length < kvp.Key.Length)
-                            {
-                                strKey = kvp.Key;
-                                strValue = kvp.Value;
-                            }
-                        }
+                        KeyValue(kvp.Key,  kvp.Value, 1);
                     }
                     break;
                 case 2:
                     foreach (KeyValuePair<string, string> kvp in NounEndings.NounEndsTwo)
                     {
-                        if (CalcLevelByLevel.LevelByLevel(kvp.Key, word, 0) == 1)
-                        {
-                            if (strKey.Length < kvp.Key.Length)
-                            {
-                                strKey = kvp.Key;
-                                strValue = kvp.Value;
-                            }
-                        }
-
+                        KeyValue(kvp.Key, kvp.Value, 1);
                     }
                     break;
                 case 3:
                     foreach (KeyValuePair<string, string> kvp in NounEndings.NounEndsThree)
                     {
-                        if (CalcLevelByLevel.LevelByLevel(kvp.Key,  word, 0) == 1)
-                        {
-                            if (strKey.Length < kvp.Key.Length)
-                            {
-                                strKey = kvp.Key;
-                                strValue = kvp.Value;
-                            }
-                        }
+                        KeyValue(kvp.Key, kvp.Value, 1);
                     }
                     break;
                 default:
                     break;
             }
             
-            if(string.IsNullOrEmpty(strKey)==false)
+            if(string.IsNullOrEmpty(this.strKey)==false)
             {
-                Dict.Add(strKey, strValue);
-                word = word.Remove(word.Length - strKey.Length);
+                Dict.Add(this.strKey, this.strValue);
+                this.word = this.word.Remove(this.word.Length - this.strKey.Length);
             }
         }
         public Dictionary<string, string> GettingEndings()
         {
-            Console.WriteLine(word);
+            Console.WriteLine("Noun: " + this.word);
             for (int i = 3; i > 0; i--)
             {
                 CalculationEndings(i);
             }
-            Dict.Add(word, "Основа слова");
-            
+            Dict.Add(this.word, "Основа слова");
 
             return Dict;
+        }
+
+        public void KeyValue(string key,  string value, int mode)
+        {
+            if (CalcEnginsGeneral.CheckEnding(key, this.word, mode))
+            {
+                if (this.strKey.Length < key.Length)
+                {
+                    this.strKey = key;
+                    this.strValue = value;
+                }
+            }
         }
 
     }

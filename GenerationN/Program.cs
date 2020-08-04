@@ -24,13 +24,17 @@ namespace GenerationN
             // CreateHostBuilder(args).Build().Run();
 
             // GetNounEndings getNoun = new GetNounEndings();
-            string str = "mansabparast";
+           /*
+            * Нужно оформить все окончания по алфавитно, затем через бинари сёрч 
+            * прогнать наше окончание
+            */
+            string str = "Bolalarimiz";
             GetEndingsGeneral getEnds = new GetEndingsGeneral(
-                new GetNounEndings(str));
-            GetEndingsGeneral getEndsA = new GetEndingsGeneral(
-                new GetAdjectiveEndings(str));
+                new GettingNouns(str));
+           GetEndingsGeneral getEndsA = new GetEndingsGeneral(
+                new GettingAdjectives(str));
            
-            foreach(KeyValuePair<string,string> kvp in getEnds.GettingEndings())
+            foreach(KeyValuePair<string,string> kvp in getEnds.GetEndings())
             {
                 dict = new Dictionary<string, string>
                 {
@@ -38,15 +42,10 @@ namespace GenerationN
                 }; 
                 Console.WriteLine($"{kvp.Key}: {kvp.Value}");
             }
-            foreach (KeyValuePair<string, string> kvp in getEndsA.GettingEndings())
+            foreach (KeyValuePair<string, string> kvp in getEndsA.GetEndings())
             {
-                dict = new Dictionary<string, string>
-                {
-                    {kvp.Key, kvp.Value }
-                };
                 Console.WriteLine($"{kvp.Key}: {kvp.Value}");
             }
-
             Console.ReadKey();
         }
 

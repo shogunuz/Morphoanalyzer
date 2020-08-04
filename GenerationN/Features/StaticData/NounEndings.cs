@@ -7,12 +7,25 @@ namespace GenerationN.Features.StaticData
 {
     public class NounEndings
     {
-        internal static Dictionary<string, string> NounEndsOne = new Dictionary<string, string>()
+
+        public Dictionary<int, Dictionary<string, string>> Dict;
+
+        public NounEndings()
+        {
+            Dict = new Dictionary<int, Dictionary<string, string>>
+           {
+                {1, new Dictionary<string, string>(NounEndsOne)},
+                {2, new Dictionary<string, string>(NounEndsTwo)},
+                {3, new Dictionary<string, string>(NounEndsThree)}
+           };
+        }
+
+        private static readonly Dictionary<string, string> NounEndsOne = new Dictionary<string, string>()
         {
         {"lar","Окончание множественного числа (существительное)" }
         };
 
-        internal static Dictionary<string, string> NounEndsTwo = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> NounEndsTwo = new Dictionary<string, string>()
        {
             {"m","1-ое лицо, гласные окончания, ед. число bola-m"},
             {"im","1 -ое лицо, согласные окончания, ед. число bolalar-im, kitob-im"},
@@ -26,20 +39,16 @@ namespace GenerationN.Features.StaticData
             {"i","3-ое лицо, гласные согласные окончания, ед. число uy-i, kitob-i" },
            };
 
-        internal static Dictionary<string, string> NounEndsThree = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> NounEndsThree = new Dictionary<string, string>()
             {
-             {"ss","Именительный падеж(кто? что?) не имеет окончания bola, kitob" },
-            {"ning","Родительный падеж(Чья? Чей?), bolaning, kitobning" },
-            {"ni","Винительный падеж(Кого? Чего?), bolani, kitobni" },
-            {"ga","Дательно-направительный падеж(Кому? Чему? Почему? Куда?), bolaga, kitobga" },
-            {"ka","Дательно-направительный падеж(Кому? Чему? Почему? Куда?), kokrakka, teshikka" },
-            {"qa","Дательно-направительный падеж(Кому? Чему? Почему? Куда?), toqqa, boqqa" },
-            {"na","Дательно-направительный падеж(Кому? Чему? Почему? Куда?), bolaga, kitobga" },
-            {"da","Дательно-направительный падеж(У кого? В чем? На чем?), bolada, mahallada" }
-        
+                {"ss","Именительный падеж(кто? что?) не имеет окончания bola, kitob" },
+                {"ning","Родительный падеж(Чья? Чей?), bolaning, kitobning" },
+                {"ni","Винительный падеж(Кого? Чего?), bolani, kitobni" },
+                {"ga","Дательно-направительный падеж(Кому? Чему? Почему? Куда?), bolaga, kitobga" },
+                {"ka","Дательно-направительный падеж(Кому? Чему? Почему? Куда?), kokrakka, teshikka" },
+                {"qa","Дательно-направительный падеж(Кому? Чему? Почему? Куда?), toqqa, boqqa" },
+                {"na","Дательно-направительный падеж(Кому? Чему? Почему? Куда?), bolaga, kitobga" },
+                {"da","Дательно-направительный падеж(У кого? В чем? На чем?), bolada, mahallada" } 
             };
-
-
-
-}
+    }
 }

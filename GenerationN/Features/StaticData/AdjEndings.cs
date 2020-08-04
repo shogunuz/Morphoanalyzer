@@ -9,7 +9,20 @@ namespace GenerationN.Features.StaticData
     {
         private static string fromNounToAdj = "Окончания, формирующие прилагательные от существительных";
         private static string fromVerbtoAdj = "Окончания, формирующие прилагательные от глаголов";
-        internal static Dictionary<string, string> AdjEndsOne = new Dictionary<string, string>()
+
+        public Dictionary<int, Dictionary<string, string>> Dict;
+
+        public AdjEndings()
+        {
+            Dict = new Dictionary<int, Dictionary<string, string>>
+            {
+                {0, new Dictionary<string, string>(AdjEndsOnePre)},
+                {1, new Dictionary<string, string>(AdjEndsOne)},
+                {2, new Dictionary<string, string>(AdjEndsTwo)},
+                {3, new Dictionary<string, string>(AdjEndsThree)}
+            };
+        }
+        private static readonly Dictionary<string, string> AdjEndsOne = new Dictionary<string, string>()
         {
             {"li", $"{fromNounToAdj} rasmli (kitob), kuchli (shamol)" },
             {"lik", $"{fromNounToAdj} toshkеntlik (bola), ko’ylaklik(chit), bolalik(chog’lar) " },
@@ -49,9 +62,9 @@ namespace GenerationN.Features.StaticData
             {"xo’r", $"{fromNounToAdj} g’amxo’r(odam), go’shtxo’r(hayvon)" },
             {"soz", $"{fromNounToAdj} soatsoz(usta)" },
             {"dek", $"{fromNounToAdj} muzdеk(suv), jo’jabirday(jon)" }
-           // {"qa", $"{fromNounToAdj} " },
         };
-        internal static Dictionary<string, string> AdjEndsOnePre = new Dictionary<string, string>()
+
+        private static readonly Dictionary<string, string> AdjEndsOnePre = new Dictionary<string, string>()
         {
             {"xush", $"{fromNounToAdj} xushfе'l, xushhavo" },
             {"bad", $"{fromNounToAdj} badbaxt, badnafs" },
@@ -61,8 +74,7 @@ namespace GenerationN.Features.StaticData
             {"bar", $"{fromNounToAdj} barhayot, barvaqt" }
         };
 
-
-        internal static Dictionary<string, string> AdjEndsTwo = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> AdjEndsTwo = new Dictionary<string, string>()
        {
              {"choq", $"{fromVerbtoAdj} maqtanchoq" },
              {"chack", $"{fromVerbtoAdj} kuyunchak" },
@@ -95,7 +107,9 @@ namespace GenerationN.Features.StaticData
              {"ong'ich", $"{fromVerbtoAdj} tepong'ich, suzong'inch" },
              {"ovuch", $"{fromVerbtoAdj} hurkovuch, iskovuch" },
              {"mas", $"{fromVerbtoAdj} o'tmas(pichoq), indamas(odam)" },
-             {"indi", $"{fromVerbtoAdj} asrandi (bola)" }
+             {"indi", $"{fromVerbtoAdj} asrandi (bola)" },
+             {"lom", $"{fromVerbtoAdj} sog'lom" },
+             {"msiq", $"{fromVerbtoAdj} qarimsiq, achimsiq" },
             // Я дошел до 1.1.3
            };
         /* Exception words for AdjEndsTwo
@@ -106,7 +120,7 @@ namespace GenerationN.Features.StaticData
          *    Только одна буква!
              {"a", $"{fromVerbtoAdj} ko'tara (savdo)" },
          */
-        internal static Dictionary<string, string> AdjEndsThree = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> AdjEndsThree = new Dictionary<string, string>()
             {
                 {"ss","Именительный падеж(кто? что?) не имеет окончания bola, kitob" },
                

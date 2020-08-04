@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace GenerationN.GetEndings
 {
-    public interface IParent
+    public interface IGetEndings
     {
-
-       
-        void CalculationEndings(int i);
-        Dictionary<string, string> GettingEndings();
+        Dictionary<string, string> GetEndings();
         void KeyValue(string key, string value, int mode);
     }
 }

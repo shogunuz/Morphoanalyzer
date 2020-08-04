@@ -12,21 +12,16 @@ namespace GenerationN.Features
     public class GetEndingsGeneral
     {
         public Dictionary<string, string> EndingDictionary { get; set; }
-        public IParent Parent { get; set; }
+        public IGetEndings Parent { get; set; }
 
-        public GetEndingsGeneral(IParent parent)
+        public GetEndingsGeneral(IGetEndings parent)
         {
             this.Parent = parent;
         }
 
-        public Dictionary<string, string> GettingEndings()
+        public Dictionary<string, string> GetEndings()
         {
-            return Parent.GettingEndings();
-        }
-
-        public void CalculationEndings(int i)
-        {
-            Parent.CalculationEndings(i);
+            return Parent.GetEndings();
         }
 
         public void KeyValue(string key, string value, int mode) 

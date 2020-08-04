@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GenerationN.GetEndings
 {
-    public class GetAdverbEndings 
+    public class GettingAdverbs 
     {
 
         internal void AnalyzingWord(string str)

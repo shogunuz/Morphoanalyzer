@@ -26,7 +26,7 @@ namespace GenerationN.GetEndings
 
         public Dictionary<string, string> GetEndings()
         {
-            Console.WriteLine("Noun: " + this.word);
+            //Console.WriteLine("Noun: " + this.word);
             for (int i = 3; i > 0; i--)
             {
                 foreach (KeyValuePair<string, string> kvp in nd.Dict[i])

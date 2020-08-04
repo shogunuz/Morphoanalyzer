@@ -8,7 +8,14 @@ namespace GenerationN.Features.StaticData
     public class AdjEndings
     {
         private static string fromNounToAdj = "Окончания, формирующие прилагательные от существительных";
-        private static string fromVerbtoAdj = "Окончания, формирующие прилагательные от глаголов";
+        private static string fromVerbToAdj = "Окончания, формирующие прилагательные от глаголов";
+        private static string fromOthersToAdj = "Окончания, формирующие прилагательное от других частей речи";
+        private static string TwoWords = "Прилагательные, формирующиеся путем слияния двух слов";
+        private static string fromSumOfNouns = $"{TwoWords}  (существительное + существительное)";
+        private static string fromSumOfAdjNoun = $"{TwoWords} (прилагательное + существительное)";
+        private static string fromSumOfVerbNounAdv = $"{TwoWords}  (глагол с окончанием -ar + сущ. | наречие )";
+        private static string fromEndings = $"{TwoWords} или добавлением окончаний (-aro)";
+
 
         public Dictionary<int, Dictionary<string, string>> Dict;
 
@@ -16,7 +23,6 @@ namespace GenerationN.Features.StaticData
         {
             Dict = new Dictionary<int, Dictionary<string, string>>
             {
-                {0, new Dictionary<string, string>(AdjEndsOnePre)},
                 {1, new Dictionary<string, string>(AdjEndsOne)},
                 {2, new Dictionary<string, string>(AdjEndsTwo)},
                 {3, new Dictionary<string, string>(AdjEndsThree)}
@@ -64,69 +70,76 @@ namespace GenerationN.Features.StaticData
             {"dek", $"{fromNounToAdj} muzdеk(suv), jo’jabirday(jon)" }
         };
 
-        private static readonly Dictionary<string, string> AdjEndsOnePre = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> AdjEndsTwo = new Dictionary<string, string>()
         {
             {"xush", $"{fromNounToAdj} xushfе'l, xushhavo" },
             {"bad", $"{fromNounToAdj} badbaxt, badnafs" },
             {"ser", $"{fromNounToAdj} sеrhosil olma" },
             {"ba", $"{fromNounToAdj} badavlat, baquvvat" },
             {"be", $"{fromNounToAdj} bеg’ubor, bеxabar" },
-            {"bar", $"{fromNounToAdj} barhayot, barvaqt" }
+            {"bar", $"{fromNounToAdj} barhayot, barvaqt" },
+            {"no", $"{fromOthersToAdj} noma'lum, noto'g'ri" },
+            {"bodom", $"{fromSumOfNouns} bodomqovoh" },
+            {"sher", $"{fromSumOfNouns} sheryurak" },
+            {"qimmat", $"{fromSumOfAdjNoun} qimmatbaho" },
+            {"tez", $"{fromSumOfVerbNounAdv} tezoqar" },
+            {"erta", $"{fromSumOfVerbNounAdv} ertapishar" },
+            {"umum", $"{fromSumOfVerbNounAdv} umumkomanda" },
+            {"yarim", $"{fromSumOfVerbNounAdv} yarimavtomat" },
+            {"nim", $"{fromSumOfVerbNounAdv} nimpushti" }
         };
 
-        private static readonly Dictionary<string, string> AdjEndsTwo = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> AdjEndsThree = new Dictionary<string, string>()
        {
-             {"choq", $"{fromVerbtoAdj} maqtanchoq" },
-             {"chack", $"{fromVerbtoAdj} kuyunchak" },
-             {"chiq", $"{fromVerbtoAdj} qizg'anchiq" },
-             {"gir", $"{fromVerbtoAdj} sezgir" },
-             {"g'ir", $"{fromVerbtoAdj} olg'ir" },
-             {"kir", $"{fromVerbtoAdj} o'tkir" },
-             {"qir", $"{fromVerbtoAdj} topqir" },
-             {"qur", $"{fromVerbtoAdj} uchqur" },
-             {"ma", $"{fromVerbtoAdj} qaynatma sho'rva" },
-             {"ik", $"{fromVerbtoAdj} teshik, chirik" },
-             {"uk", $"{fromVerbtoAdj} tuzuk" },
-             {"ak", $"{fromVerbtoAdj} g'alvirak" },
-             {"uq", $"{fromVerbtoAdj} buzuq" },
-             {"iq", $"{fromVerbtoAdj} iliq, siniq" },
-             {"oq", $"{fromVerbtoAdj} qoloq, qochoq, qo'rqoq, baqiroq" },
-             {"qi", $"{fromVerbtoAdj} sayroqi qush" },
-             {"qoq", $"{fromVerbtoAdj} tirishqoq, uyushqoq" },
-             {"g'oq", $"{fromVerbtoAdj} toyg'oq" },
-             {"ag'on", $"{fromVerbtoAdj} bilag'on, chopag'on" },
-             {"mon", $"{fromVerbtoAdj} bilarmon, qirarmon" },
-             {"kun", $"{fromVerbtoAdj} tushkun" },
-             {"qin", $"{fromVerbtoAdj} jo'shqin" },
-             {"g'in", $"{fromVerbtoAdj} ozg'in" },
-             {"g'un", $"{fromVerbtoAdj} turg'un" },
-             {"qun", $"{fromVerbtoAdj} tutqun" },
-             {"arli", $"{fromVerbtoAdj} yetarli, zerikarli" },
-             {"ch", $"{fromVerbtoAdj} tinch, jirkanch" },
-             {"g'ich", $"{fromVerbtoAdj} yulg'ich" },
-             {"ong'ich", $"{fromVerbtoAdj} tepong'ich, suzong'inch" },
-             {"ovuch", $"{fromVerbtoAdj} hurkovuch, iskovuch" },
-             {"mas", $"{fromVerbtoAdj} o'tmas(pichoq), indamas(odam)" },
-             {"indi", $"{fromVerbtoAdj} asrandi (bola)" },
-             {"lom", $"{fromVerbtoAdj} sog'lom" },
-             {"msiq", $"{fromVerbtoAdj} qarimsiq, achimsiq" },
-            // Я дошел до 1.1.3
+             {"choq", $"{fromVerbToAdj} maqtanchoq" },
+             {"chack", $"{fromVerbToAdj} kuyunchak" },
+             {"chiq", $"{fromVerbToAdj} qizg'anchiq" },
+             {"gir", $"{fromVerbToAdj} sezgir" },
+             {"g'ir", $"{fromVerbToAdj} olg'ir" },
+             {"kir", $"{fromVerbToAdj} o'tkir" },
+             {"qir", $"{fromVerbToAdj} topqir" },
+             {"qur", $"{fromVerbToAdj} uchqur" },
+             {"ma", $"{fromVerbToAdj} qaynatma sho'rva" },
+             {"ik", $"{fromVerbToAdj} teshik, chirik" },
+             {"uk", $"{fromVerbToAdj} tuzuk" },
+             {"ak", $"{fromVerbToAdj} g'alvirak" },
+             {"uq", $"{fromVerbToAdj} buzuq" },
+             {"iq", $"{fromVerbToAdj} iliq, siniq" },
+             {"oq", $"{fromVerbToAdj} qoloq, qochoq, qo'rqoq, baqiroq" },
+             {"qi", $"{fromVerbToAdj} sayroqi qush" },
+             {"qoq", $"{fromVerbToAdj} tirishqoq, uyushqoq" },
+             {"g'oq", $"{fromVerbToAdj} toyg'oq" },
+             {"ag'on", $"{fromVerbToAdj} bilag'on, chopag'on" },
+             {"mon", $"{fromVerbToAdj} bilarmon, qirarmon" },
+             {"kun", $"{fromVerbToAdj} tushkun" },
+             {"qin", $"{fromVerbToAdj} jo'shqin" },
+             {"g'in", $"{fromVerbToAdj} ozg'in" },
+             {"g'un", $"{fromVerbToAdj} turg'un" },
+             {"qun", $"{fromVerbToAdj} tutqun" },
+             {"arli", $"{fromVerbToAdj} yetarli, zerikarli" },
+             {"ch", $"{fromVerbToAdj} tinch, jirkanch" },
+             {"g'ich", $"{fromVerbToAdj} yulg'ich" },
+             {"ong'ich", $"{fromVerbToAdj} tepong'ich, suzong'inch" },
+             {"ovuch", $"{fromVerbToAdj} hurkovuch, iskovuch" },
+             {"mas", $"{fromVerbToAdj} o'tmas(pichoq), indamas(odam)" },
+             {"indi", $"{fromVerbToAdj} asrandi (bola)" },
+             {"lom", $"{fromVerbToAdj} sog'lom" },
+             {"msiq", $"{fromVerbToAdj} qarimsiq, achimsiq" },
+             {"aro", $"{fromEndings} xalqaro" }
            };
         /* Exception words for AdjEndsTwo
          * Похожие окончания
-         *   {"qoq", $"{fromVerbtoAdj} tirishqoq, uyushqoq" },
-         *    {"oq", $"{fromVerbtoAdj} qoloq, qochoq, qo'rqoq, baqiroq" },
+         *   {"qoq", $"{fromVerbToAdj} tirishqoq, uyushqoq" },
+         *    {"oq", $"{fromVerbToAdj} qoloq, qochoq, qo'rqoq, baqiroq" },
          *    
          *    Только одна буква!
-             {"a", $"{fromVerbtoAdj} ko'tara (savdo)" },
+             {"a", $"{fromVerbToAdj} ko'tara (savdo)" },
          */
-        private static readonly Dictionary<string, string> AdjEndsThree = new Dictionary<string, string>()
-            {
-                {"ss","Именительный падеж(кто? что?) не имеет окончания bola, kitob" },
-               
-            };
 
-
-
-}
+        //1.2.2 + 1.2.3
+        private static readonly Dictionary<string, string> AdjEndsFour = new Dictionary<string, string>()
+        {
+            {"aro", $"{fromEndings} xalqaro" }
+        };
+    }
 }

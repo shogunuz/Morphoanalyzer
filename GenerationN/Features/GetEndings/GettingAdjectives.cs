@@ -27,14 +27,17 @@ namespace GenerationN.GetEndings
         
         public Dictionary<string, string> GetEndings()
         {
-            
-            Console.WriteLine("Adjective: "+this.word);
-
-            for (int i = 3; i >= 0; i--)
+            //Console.WriteLine("Adjective: "+this.word);
+            int mode = 0;
+            for (int i = 3; i > 0; i--)
             {
+                mode = 1;
                 foreach (KeyValuePair<string, string> kvp in ad.Dict[i])
                 {
-                    int mode = (i == 0) ? 0 : 1;
+                    if (i == 2)
+                    {
+                        mode = 0;
+                    }
                     KeyValue(kvp.Key, kvp.Value, mode);
                 }
                 if (string.IsNullOrEmpty(this.strKey) == false)

@@ -16,36 +16,10 @@ namespace GenerationN
 {
     public class Program
     {
-        //globally unique identifier[GUID] is a statistically unique 128-bit number
-        //PointID = Guid.NewGuid();
-        private static Dictionary<string, string> dict;
         public static void Main(string[] args)
         {
-            // CreateHostBuilder(args).Build().Run();
-
-            // GetNounEndings getNoun = new GetNounEndings();
-           /*
-            * Нужно оформить все окончания по алфавитно, затем через бинари сёрч 
-            * прогнать наше окончание
-            */
-            string str = "Bolalarimiz";
-            GetEndingsGeneral getEnds = new GetEndingsGeneral(
-                new GettingNouns(str));
-           GetEndingsGeneral getEndsA = new GetEndingsGeneral(
-                new GettingAdjectives(str));
+            CreateHostBuilder(args).Build().Run();
            
-            foreach(KeyValuePair<string,string> kvp in getEnds.GetEndings())
-            {
-                dict = new Dictionary<string, string>
-                {
-                    {kvp.Key, kvp.Value }
-                }; 
-                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
-            }
-            foreach (KeyValuePair<string, string> kvp in getEndsA.GetEndings())
-            {
-                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
-            }
             Console.ReadKey();
         }
 

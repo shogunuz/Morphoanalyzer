@@ -11,7 +11,7 @@ namespace GenerationN.Features
   
     public class GetEndingsGeneral
     {
-        public Dictionary<string, string> EndingDictionary { get; set; }
+        
         public IGetEndings Parent { get; set; }
 
         public GetEndingsGeneral(IGetEndings parent)

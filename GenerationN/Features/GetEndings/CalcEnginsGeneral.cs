@@ -17,34 +17,37 @@ namespace GenerationN.Features.GetEndings
         private static bool FromEndToStart(string key, string word)
         {
             int k = 0;
-            char[] charArr = key.ToArray();
-            Array.Reverse(charArr);
+            char[] keyArr = key.ToArray();
+            Array.Reverse(keyArr);
             char[] wordArr = word.ToArray();
             Array.Reverse(wordArr);
-            for (int i=0; i<charArr.Length; i++)
+            for (int i=0; i< keyArr.Length; i++)
             {
-                if (wordArr[i] == charArr[i])
+                if (wordArr[i] == keyArr[i])
                 {
                     k++;
                 }
             }
-            bool res = (k == charArr.Length) ? true : false;
+            bool res = (k == keyArr.Length) ? true : false;
 
             return res;
         }
         private static bool FromStartToEnd(string key, string word)
         {
             int k = 0;
-            char[] charArr = key.ToArray();
+            char[] keyArr = key.ToArray();
             char[] wordArr = word.ToArray();
-            for (int i = 0; i < charArr.Length; i++)
+            if(keyArr.Length != wordArr.Length)
             {
-                if (wordArr[i] == charArr[i])
+                for (int i = 0; i < keyArr.Length; i++)
                 {
-                    k++;
+                    if (wordArr[i] == keyArr[i])
+                    {
+                        k++;
+                    }
                 }
             }
-            bool res = (k == charArr.Length) ? true : false;
+            bool res = (k == keyArr.Length) ? true : false;
 
             return res;
         }

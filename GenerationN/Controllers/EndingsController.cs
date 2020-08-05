@@ -17,17 +17,21 @@ namespace GenerationN.Controllers
     public class EndingsController : ControllerBase
     {
         private GettingEndings endings;
-        private Dictionary<string, string> dict;
         public EndingsController()
         {
             endings = new GettingEndings();
-            dict = new Dictionary<string, string>();
         }
 
         // GET: api/<EndingsController>
         [HttpGet]
         public IDictionary<string, string> Endings()
         {
+            Dictionary<string, string> dict = new Dictionary<string, string>
+            {
+                {"Первое окончание","Описание окончания" },
+                {"Второе окончание","Описание второго окончания" },
+                {"Корень слова","Что мы получили в итоге..." }
+            };
 
             return dict;
         }
@@ -36,15 +40,12 @@ namespace GenerationN.Controllers
         [HttpPost]
         public async Task<ActionResult<ModelWord>> Endings([FromBody] string word)
         {
-           ModelWord dicts = new ModelWord();
+            ModelWord dicts = new ModelWord();
             dicts.Dict = new Dictionary<string, string>();
+
             if (string.IsNullOrEmpty(word))
                 return null;
-            /*
-            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
-            {
-                return reader.ReadToEndAsync();
-            } */
+          
             foreach (KeyValuePair<string, string> kvp in endings.GetResult(word))
             {
                 dicts.Dict.Add(kvp.Key, kvp.Value);

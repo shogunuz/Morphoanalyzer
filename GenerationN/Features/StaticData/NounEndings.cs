@@ -9,6 +9,8 @@ namespace GenerationN.Features.StaticData
     {
 
         public Dictionary<int, Dictionary<string, string>> Dict;
+        private static string personsEndings = 
+            "Окончания, формирующие существительные - личности";
 
         public NounEndings()
         {
@@ -22,7 +24,18 @@ namespace GenerationN.Features.StaticData
 
         private static readonly Dictionary<string, string> NounEndsOne = new Dictionary<string, string>()
         {
-        {"lar","Окончание множественного числа (существительное)" }
+            {"lar","Окончание множественного числа (существительное)" },
+            {"chi",$"{personsEndings} (suvchi, sportchi)" },
+            {"dosh",$"{personsEndings} (sinfdosh, suhbatdosh)" },
+            {"kor",$"{personsEndings} (paxtakor)" },
+            {"kar",$"{personsEndings} (miskar)" },
+            {"gar",$"{personsEndings} (zargar)" },
+            {"gor",$"{personsEndings} (talabgor)" },
+            {"kash",$"{personsEndings} (aravakash)" },
+            {"dor",$"{personsEndings} (amaldor, chorvador)" },
+            {"bon",$"{personsEndings}  (darvozabon, saroybon)" },
+            {"boz",$"{personsEndings}  (dorboz, askiyaboz)" },
+            {"paz",$"{personsEndings} (oshpar, mantipaz)" }
         };
 
         private static readonly Dictionary<string, string> NounEndsTwo = new Dictionary<string, string>()

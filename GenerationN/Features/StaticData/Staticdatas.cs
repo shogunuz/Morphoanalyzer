@@ -9,7 +9,8 @@ namespace GenerationN.StaticData
     {
         public static int KindsOfEndings = 4;
         public static int LevelOfEndings = 3;
-
+        public static string CheckCorrectnessWord =
+            "Не удалось распознать слово, попробуйте проверить правильно написания";
 
         /*
           Dictionary<string, Person> peopleA = new Dictionary<string, Person>();
@@ -27,6 +28,6 @@ namespace GenerationN.StaticData
          .. };
          */
 
-        
+
     }
 }

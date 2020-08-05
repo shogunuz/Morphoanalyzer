@@ -13,63 +13,77 @@ namespace GenerationN.GetEndings
         private Dictionary<string, string> Dict;
         private string strKey { get; set; }
         private string strValue { get; set; }
+        private int mode { get; set; }
 
         private string word;
 
         AdjEndings ad;
+
         public GettingAdjectives(string word)
         {
-            Dict = new Dictionary<string, string>();
             this.word = word;
             ad = new AdjEndings();
+            Dict = new Dictionary<string, string>();
         }
 
         
         public Dictionary<string, string> GetEndings()
         {
-            //Console.WriteLine("Adjective: "+this.word);
-            int mode = 0;
+            //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
+            //окончание существительного
+            int processed = 0;
             for (int i = 3; i > 0; i--)
             {
-                mode = 1;
+                MakeAllVariablesToEmpty();
                 foreach (KeyValuePair<string, string> kvp in ad.Dict[i])
                 {
                     if (i == 2)
                     {
-                        mode = 0;
+                        this.mode = 0;
                     }
                     KeyValue(kvp.Key, kvp.Value, mode);
                 }
                 if (string.IsNullOrEmpty(this.strKey) == false)
                 {
+                    processed++;
                     Dict.Add(this.strKey, this.strValue);
-                    this.word = this.word.Remove(this.word.Length - this.strKey.Length);
+                    if (this.mode == 0)
+                    {
+                        this.word = this.word.Remove(0, this.strKey.Length);
+                    }
+                    else
+                    {
+                        this.word = this.word.Remove(this.word.Length - this.strKey.Length);
+                    }
                 }
 
-                this.strKey = "";
-                this.strValue = "";
             }
 
-            Dict.Add(this.word, "Основа слова");
+            if(processed>0)
+            {
+                Dict.Add(this.word, "Основа слова (прилагательное)");
+            }
 
             return Dict;
         }
 
         public void KeyValue(string key, string value, int mode)
         {
-            void keyValue()
+            if (CalcEnginsGeneral.CheckEnding(key, this.word, mode))
             {
-                if (CalcEnginsGeneral.CheckEnding(key, this.word, mode))
+                if (this.strKey.Length < key.Length)
                 {
-                    if (this.strKey.Length < key.Length)
-                    {
-                        this.strKey = key;
-                        this.strValue = value;
-                    }
+                    this.strKey = key;
+                    this.strValue = value;
                 }
             }
-            keyValue();
         }
 
+        public void MakeAllVariablesToEmpty()
+        {
+            this.strKey = "";
+            this.strValue = "";
+            this.mode = 1;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GenerationN.StaticData;
 
 namespace GenerationN.Features
 {
@@ -10,10 +11,9 @@ namespace GenerationN.Features
     {
         public Dictionary<string, string> GetResult(string word)
         {
-            Dictionary<string, string>[] dicts = 
-                new Dictionary<string, string>[2];
+            Dictionary<string, string>[] resultDictionary = new Dictionary<string, string>[2];
 
-            Dictionary<string, string> Innerdict = new Dictionary<string, string>();
+            Dictionary<string, string> InnerDict;
 
             List<int> numbers = new List<int>();
 
@@ -21,21 +21,29 @@ namespace GenerationN.Features
             getEnds[0] = new GetEndingsGeneral(new GettingNouns(word));
             getEnds[1] = new GetEndingsGeneral(new GettingAdjectives(word));
 
-            int k = 0;
-
             for (int i = 0; i < getEnds.Length; i++)
             {
+                InnerDict = new Dictionary<string, string>();
                 foreach (KeyValuePair<string, string> kvp in getEnds[i].GetEndings())
                 {
-                    Innerdict.Add(kvp.Key, kvp.Value);
+                    InnerDict.Add(kvp.Key, kvp.Value);
                 }
-                dicts[i] = new Dictionary<string, string>(Innerdict);
-                numbers.Add(Innerdict.Count);
+                resultDictionary[i] = new Dictionary<string, string>(InnerDict);
+                numbers.Add(InnerDict.Count);
             }
-            int t = numbers.Max<int>();
-            t = numbers.IndexOf(t);
 
-            return dicts[t];
+            // Получаю индекс словаря, который содержит больше всего окончаний.
+            int t = numbers.IndexOf(numbers.Max<int>());
+
+            if(resultDictionary[t].Count == 0)
+            {
+                resultDictionary[t] = new Dictionary<string, string>
+                {
+                    {$"{word}", Staticdatas.CheckCorrectnessWord}
+                };
+            }
+
+            return resultDictionary[t];
         }
 
        

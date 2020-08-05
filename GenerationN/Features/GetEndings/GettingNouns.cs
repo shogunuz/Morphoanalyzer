@@ -26,24 +26,32 @@ namespace GenerationN.GetEndings
 
         public Dictionary<string, string> GetEndings()
         {
-            //Console.WriteLine("Noun: " + this.word);
+            //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
+            //окончание существительного
+            int processed = 0;
             for (int i = 3; i > 0; i--)
             {
+                MakeAllVariablesToEmpty();
+
                 foreach (KeyValuePair<string, string> kvp in nd.Dict[i])
                 {
                     KeyValue(kvp.Key, kvp.Value, 1);
                 }
+
                 if (string.IsNullOrEmpty(this.strKey) == false)
                 {
                     Dict.Add(this.strKey, this.strValue);
                     this.word = this.word.Remove(this.word.Length - this.strKey.Length);
+                    processed++;
                 }
 
-                this.strKey = "";
-                this.strValue = "";
+                
             }
 
-            Dict.Add(this.word, "Основа слова");
+            if(processed > 0)
+            {
+                Dict.Add(this.word, "Основа слова (существительное)");
+            }
 
             return Dict;
         }
@@ -58,6 +66,12 @@ namespace GenerationN.GetEndings
                     this.strValue = value;
                 }
             }
+        }
+
+        public void MakeAllVariablesToEmpty()
+        {
+            this.strKey = "";
+            this.strValue = "";
         }
 
     }

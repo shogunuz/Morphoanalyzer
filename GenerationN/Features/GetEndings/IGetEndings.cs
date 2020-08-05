@@ -9,5 +9,8 @@ namespace GenerationN.GetEndings
     {
         Dictionary<string, string> GetEndings();
         void KeyValue(string key, string value, int mode);
+
+        public void MakeAllVariablesToEmpty();
+        
     }
 }

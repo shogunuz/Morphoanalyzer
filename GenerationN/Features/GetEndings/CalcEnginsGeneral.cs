@@ -21,12 +21,23 @@ namespace GenerationN.Features.GetEndings
             Array.Reverse(keyArr);
             char[] wordArr = word.ToArray();
             Array.Reverse(wordArr);
-            for (int i=0; i< keyArr.Length; i++)
+            try
             {
-                if (wordArr[i] == keyArr[i])
+                for (int i = 0; i < keyArr.Length; i++)
                 {
-                    k++;
+                    if (wordArr[i] == keyArr[i])
+                    {
+                        k++;
+                    }
                 }
+            }
+            catch (IndexOutOfRangeException indexEx)
+            {
+                
+            }
+            catch (Exception ex)
+            {
+
             }
             bool res = (k == keyArr.Length) ? true : false;
 

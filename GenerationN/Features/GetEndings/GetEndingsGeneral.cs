@@ -29,5 +29,11 @@ namespace GenerationN.Features
             Parent.KeyValue(key, value, mode);
         }
 
+
+        public void MakeAllVariablesToEmpty()
+        {
+            Parent.MakeAllVariablesToEmpty();
+        }
+
     }
 }

@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace GenerationN.StaticData
 {
-    public class Staticdatas
+    public class StaticString
     {
         public static int KindsOfEndings = 4;
         public static int LevelOfEndings = 3;
         public static string CheckCorrectnessWord =
             "Не удалось распознать слово, попробуйте проверить правильно написания";
-
+        public static string MainString = "Основа слова";
         /*
           Dictionary<string, Person> peopleA = new Dictionary<string, Person>();
           peopleA.Add("Homer", new Person { FirstName = "Homer", LastName = "Simpson", Age = 47 }); 

@@ -25,10 +25,49 @@ namespace GenerationN.Features.StaticData
             {
                 {1, new Dictionary<string, string>(AdjEndsOne)},
                 {2, new Dictionary<string, string>(AdjEndsTwo)},
-                {3, new Dictionary<string, string>(AdjEndsThree)}
+                {3, new Dictionary<string, string>(AdjEndsThree)},
+                {4, new Dictionary<string, string>(AdjEndsFour)},
+                {5, new Dictionary<string, string>(AdjEndsFive)},
+                {6, new Dictionary<string, string>(AdjEndsSix)},
+                {7, new Dictionary<string, string>(AdjEndsSeven)}
             };
         }
         private static readonly Dictionary<string, string> AdjEndsOne = new Dictionary<string, string>()
+        {
+            {"xush", $"{fromNounToAdj} xushfе'l, xushhavo" },
+            {"bad", $"{fromNounToAdj} badbaxt, badnafs" },
+            {"ser", $"{fromNounToAdj} sеrhosil olma" },
+            {"ba", $"{fromNounToAdj} badavlat, baquvvat" },
+            {"be", $"{fromNounToAdj} bеg’ubor, bеxabar" },
+            {"bar", $"{fromNounToAdj} barhayot, barvaqt" }
+        };
+
+        private static readonly Dictionary<string, string> AdjEndsTwo = new Dictionary<string, string>()
+         {
+            {"no", $"{fromOthersToAdj} noma'lum, noto'g'ri" }
+         };
+
+        private static readonly Dictionary<string, string> AdjEndsThree = new Dictionary<string, string>()
+        {
+            {"bodom", $"{fromSumOfNouns} bodomqovoh" },
+            {"sher", $"{fromSumOfNouns} sheryurak" }
+        };
+
+        private static readonly Dictionary<string, string> AdjEndsFour = new Dictionary<string, string>()
+        {
+            {"qimmat", $"{fromSumOfAdjNoun} qimmatbaho" }
+        };
+
+        private static readonly Dictionary<string, string> AdjEndsFive = new Dictionary<string, string>()
+        {
+            {"tez", $"{fromSumOfVerbNounAdv} tezoqar" },
+            {"erta", $"{fromSumOfVerbNounAdv} ertapishar" },
+            {"umum", $"{fromSumOfVerbNounAdv} umumkomanda" },
+            {"yarim", $"{fromSumOfVerbNounAdv} yarimavtomat" },
+            {"nim", $"{fromSumOfVerbNounAdv} nimpushti" }
+        };
+
+        private static readonly Dictionary<string, string> AdjEndsSix = new Dictionary<string, string>()
         {
             {"li", $"{fromNounToAdj} rasmli (kitob), kuchli (shamol)" },
             {"lik", $"{fromNounToAdj} toshkеntlik (bola), ko’ylaklik(chit), bolalik(chog’lar) " },
@@ -70,27 +109,8 @@ namespace GenerationN.Features.StaticData
             {"dek", $"{fromNounToAdj} muzdеk(suv), jo’jabirday(jon)" }
         };
 
-        private static readonly Dictionary<string, string> AdjEndsTwo = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> AdjEndsSeven = new Dictionary<string, string>()
         {
-            {"xush", $"{fromNounToAdj} xushfе'l, xushhavo" },
-            {"bad", $"{fromNounToAdj} badbaxt, badnafs" },
-            {"ser", $"{fromNounToAdj} sеrhosil olma" },
-            {"ba", $"{fromNounToAdj} badavlat, baquvvat" },
-            {"be", $"{fromNounToAdj} bеg’ubor, bеxabar" },
-            {"bar", $"{fromNounToAdj} barhayot, barvaqt" },
-            {"no", $"{fromOthersToAdj} noma'lum, noto'g'ri" },
-            {"bodom", $"{fromSumOfNouns} bodomqovoh" },
-            {"sher", $"{fromSumOfNouns} sheryurak" },
-            {"qimmat", $"{fromSumOfAdjNoun} qimmatbaho" },
-            {"tez", $"{fromSumOfVerbNounAdv} tezoqar" },
-            {"erta", $"{fromSumOfVerbNounAdv} ertapishar" },
-            {"umum", $"{fromSumOfVerbNounAdv} umumkomanda" },
-            {"yarim", $"{fromSumOfVerbNounAdv} yarimavtomat" },
-            {"nim", $"{fromSumOfVerbNounAdv} nimpushti" }
-        };
-
-        private static readonly Dictionary<string, string> AdjEndsThree = new Dictionary<string, string>()
-       {
              {"choq", $"{fromVerbToAdj} maqtanchoq" },
              {"chack", $"{fromVerbToAdj} kuyunchak" },
              {"chiq", $"{fromVerbToAdj} qizg'anchiq" },
@@ -137,7 +157,7 @@ namespace GenerationN.Features.StaticData
          */
 
         //1.2.2 + 1.2.3
-        private static readonly Dictionary<string, string> AdjEndsFour = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> AdjEndsEight = new Dictionary<string, string>()
         {
             {"aro", $"{fromEndings} xalqaro" }
         };

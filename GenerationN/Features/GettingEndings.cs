@@ -28,6 +28,7 @@ namespace GenerationN.Features
                 {
                     InnerDict.Add(kvp.Key, kvp.Value);
                 }
+                //oyinchiq / kelinchak
                 resultDictionary[i] = new Dictionary<string, string>(InnerDict);
                 numbers.Add(InnerDict.Count);
             }
@@ -39,7 +40,7 @@ namespace GenerationN.Features
             {
                 resultDictionary[t] = new Dictionary<string, string>
                 {
-                    {$"{word}", Staticdatas.CheckCorrectnessWord}
+                    {$"{word}", StaticString.CheckCorrectnessWord}
                 };
             }
 

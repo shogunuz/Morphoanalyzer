@@ -32,21 +32,24 @@ namespace GenerationN.GetEndings
             //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
             //окончание существительного
             int processed = 0;
-            for (int i = 3; i > 0; i--)
+
+            string mainString = string.Empty;
+
+            for (int i = 7; i > 0; i--)
             {
                 MakeAllVariablesToEmpty();
+
                 foreach (KeyValuePair<string, string> kvp in ad.Dict[i])
                 {
-                    if (i == 2)
-                    {
-                        this.mode = 0;
-                    }
+                    if(i == 1) { this.mode = 0; }
                     KeyValue(kvp.Key, kvp.Value, mode);
                 }
+
                 if (string.IsNullOrEmpty(this.strKey) == false)
                 {
                     processed++;
                     Dict.Add(this.strKey, this.strValue);
+                    mainString = TypeOfMainWord(i);
                     if (this.mode == 0)
                     {
                         this.word = this.word.Remove(0, this.strKey.Length);
@@ -59,9 +62,9 @@ namespace GenerationN.GetEndings
 
             }
 
-            if(processed>0)
+            if(processed > 0)
             {
-                Dict.Add(this.word, "Основа слова (прилагательное)");
+                Dict.Add(this.word, mainString);
             }
 
             return Dict;
@@ -84,6 +87,38 @@ namespace GenerationN.GetEndings
             this.strKey = "";
             this.strValue = "";
             this.mode = 1;
+        }
+
+        private string TypeOfMainWord(int i) 
+        {
+            string tmp = string.Empty;
+            switch(i)
+            {
+                case 1:
+                    tmp =  $"{StaticData.StaticString.MainString} (существительное)";
+                    break;
+                case 2:
+                    tmp = $"{StaticData.StaticString.MainString} (разные части речи)";
+                    break;
+                case 3:
+                    tmp = $"{StaticData.StaticString.MainString} (сумма существительных или существительное)";
+                    break;
+                case 4:
+                    tmp = $"{StaticData.StaticString.MainString} (сумма прилагательного и существительного)";
+                    break;
+                case 5:
+                    tmp = $"{StaticData.StaticString.MainString} (сумма глагола, существительного и наречия)";
+                    break;
+                case 6:
+                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
+                    break;
+                case 7:
+                    tmp = $"{StaticData.StaticString.MainString} (глагол)";
+                    break;
+                default: return $"{StaticData.StaticString.MainString} (прилагательное)";
+            }
+
+            return tmp;
         }
     }
 }

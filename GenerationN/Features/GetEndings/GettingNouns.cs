@@ -9,40 +9,72 @@ namespace GenerationN.GetEndings
 {
     public class GettingNouns : IGetEndings
     {
-        private Dictionary<string, string> Dict;
         private string strKey { get; set; }
         private string strValue { get; set; }
 
         private string word;
 
-        NounEndings nd;
+        private NounEndings nd;
+
+        
         public GettingNouns(string word)
         {
-            Dict = new Dictionary<string, string>();
             this.word = word;
             nd = new NounEndings();
+            
         }
       
 
         public Dictionary<string, string> GetEndings()
         {
+            Dictionary<string, string> Dict = new Dictionary<string, string>();
+
+            int mode = 1;
+            
+
             //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
             //окончание существительного
             int processed = 0;
-            for (int i = 3; i > 0; i--)
+
+            string mainString = string.Empty;
+
+            for (int i = 4; i > 0; i--)
             {
-                MakeAllVariablesToEmpty();
+                this.strKey = string.Empty;
+                this.strValue = string.Empty;
+                string key = string.Empty;
+                string value = string.Empty;
+
+
+                if (i == 1)
+                {
+                    mode = 0;
+                }
 
                 foreach (KeyValuePair<string, string> kvp in nd.Dict[i])
                 {
-                    KeyValue(kvp.Key, kvp.Value, 1);
+                    KeyValue(kvp.Key, kvp.Value, mode);
+                    if (strKey.Length > key.Length)
+                    {
+                        key = new string(strKey);
+                        value = new string(strValue);
+                    }
                 }
 
-                if (string.IsNullOrEmpty(this.strKey) == false)
+                if (string.IsNullOrEmpty(key) == false)
                 {
-                    Dict.Add(this.strKey, this.strValue);
-                    this.word = this.word.Remove(this.word.Length - this.strKey.Length);
                     processed++;
+                    Dict.Add(key, value);
+                    mainString = TypeOfMainWord(i);
+                    if (mode == 0)
+                    {
+                        //это нулевой dict, где мы удаляем не окончание, а приставку
+                        this.word = this.word.Remove(0, key.Length);
+                    }
+                    else
+                    {
+                        this.word = this.word.Remove(this.word.Length - key.Length);
+                    }
                 }
 
                 
@@ -50,7 +82,7 @@ namespace GenerationN.GetEndings
 
             if(processed > 0)
             {
-                Dict.Add(this.word, "Основа слова (существительное)");
+                Dict.Add(this.word, mainString);
             }
 
             return Dict;
@@ -68,11 +100,34 @@ namespace GenerationN.GetEndings
             }
         }
 
-        public void MakeAllVariablesToEmpty()
-        {
-            this.strKey = "";
-            this.strValue = "";
-        }
 
+        private string TypeOfMainWord(int i)
+        {
+            string tmp = string.Empty;
+            switch (i)
+            {
+                case 0:
+                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
+                    break;
+                case 1:
+                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
+                    break;
+                case 2:
+                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
+                    break;
+                case 3:
+                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
+                    break;
+                case 4:
+                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
+                    break;
+                case 5:
+                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
+                    break;
+                default: return $"{StaticData.StaticString.MainString} (разные части речи)";
+            }
+
+            return tmp;
+        }
     }
 }

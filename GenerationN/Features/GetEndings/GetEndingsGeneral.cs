@@ -30,10 +30,5 @@ namespace GenerationN.Features
         }
 
 
-        public void MakeAllVariablesToEmpty()
-        {
-            Parent.MakeAllVariablesToEmpty();
-        }
-
     }
 }

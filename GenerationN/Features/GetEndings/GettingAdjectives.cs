@@ -13,7 +13,6 @@ namespace GenerationN.GetEndings
         private Dictionary<string, string> Dict;
         private string strKey { get; set; }
         private string strValue { get; set; }
-        private int mode { get; set; }
 
         private string word;
 
@@ -32,31 +31,40 @@ namespace GenerationN.GetEndings
             //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
             //окончание существительного
             int processed = 0;
-
+            int mode = 1;
             string mainString = string.Empty;
 
             for (int i = 7; i > 0; i--)
             {
-                MakeAllVariablesToEmpty();
+                this.strKey = string.Empty;
+                this.strValue = string.Empty;
+                string key = string.Empty;
+                string value = string.Empty;
+
+                if (i == 1) { mode = 0; }
 
                 foreach (KeyValuePair<string, string> kvp in ad.Dict[i])
                 {
-                    if(i == 1) { this.mode = 0; }
                     KeyValue(kvp.Key, kvp.Value, mode);
+                    if(strKey.Length > key.Length)
+                    {
+                        key = new string(strKey);
+                        value = new string(strValue);
+                    }
                 }
 
-                if (string.IsNullOrEmpty(this.strKey) == false)
+                if (string.IsNullOrEmpty(key) == false)
                 {
                     processed++;
-                    Dict.Add(this.strKey, this.strValue);
+                    Dict.Add(key, value);
                     mainString = TypeOfMainWord(i);
-                    if (this.mode == 0)
+                    if (mode == 0)
                     {
-                        this.word = this.word.Remove(0, this.strKey.Length);
+                        this.word = this.word.Remove(0, key.Length);
                     }
                     else
                     {
-                        this.word = this.word.Remove(this.word.Length - this.strKey.Length);
+                        this.word = this.word.Remove(this.word.Length - key.Length);
                     }
                 }
 
@@ -82,12 +90,7 @@ namespace GenerationN.GetEndings
             }
         }
 
-        public void MakeAllVariablesToEmpty()
-        {
-            this.strKey = "";
-            this.strValue = "";
-            this.mode = 1;
-        }
+        
 
         private string TypeOfMainWord(int i) 
         {

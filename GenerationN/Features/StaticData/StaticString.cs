@@ -9,7 +9,7 @@ namespace GenerationN.StaticData
     {
         public static int KindsOfEndings = 4;
         public static int LevelOfEndings = 3;
-        public static string CheckCorrectnessWord =
+        public static string NotFounded =
             "Не удалось распознать слово, попробуйте проверить правильно написания";
         public static string MainString = "Основа слова";
         /*

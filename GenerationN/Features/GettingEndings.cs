@@ -40,7 +40,7 @@ namespace GenerationN.Features
             {
                 resultDictionary[t] = new Dictionary<string, string>
                 {
-                    {$"{word}", StaticString.CheckCorrectnessWord}
+                    {$"{word}", StaticString.NotFounded}
                 };
             }
 

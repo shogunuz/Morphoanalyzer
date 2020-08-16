@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace GenerationN.Models
 {
-    public class ModelWord
+    public class ModelDictionary
     {
-        public string word { get; set; }
+        public Dictionary<string, string> Dict { get; set; }
     }
 }

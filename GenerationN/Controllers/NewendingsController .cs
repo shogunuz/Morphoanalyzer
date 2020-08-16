@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using GenerationN.Features;
-using System.IO;
-using System.Text;
 using Newtonsoft.Json;
 using GenerationN.Models;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -50,8 +47,10 @@ namespace GenerationN.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Newendings([FromBody] string word)
         {
-            ModelWord dicts = new ModelWord();
+            throw new System.Exception($"{word}");
+            ModelDictionary dicts = new ModelDictionary();
             dicts.Dict = new Dictionary<string, string>();
+
             string json = string.Empty;
             if (string.IsNullOrEmpty(word))
                 return null;
@@ -66,10 +65,9 @@ namespace GenerationN.Controllers
             }
            
             await Task.Run(fillingDict);
-            //await Task.Run(() => fillingDict());
+            //await Task.Run(() => fillingDict());=
             return json;
         }
-
-
+        
     }
 }

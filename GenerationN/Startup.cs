@@ -1,15 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
 namespace GenerationN
 {
@@ -27,8 +21,7 @@ namespace GenerationN
         {
             //services.AddControllers();
             services.AddControllers()
-               .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
-               .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+                .AddNewtonsoftJson();
 
             services.AddCors(options =>
             {

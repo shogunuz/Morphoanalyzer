@@ -43,11 +43,19 @@ namespace GenerationN.Controllers
             return json;
         }
 
+        // GET: api/Newendings
+        [HttpGet]
+        public async Task<ActionResult<Dictionary<string, string>>> Newendings(Dictionary<string, string> dict)
+        { 
+            
+            return dict;
+        }
+
         // POST api/Newendings
         [HttpPost]
-        public async Task<ActionResult<string>> Newendings([FromBody] string word)
+        public async Task<ActionResult<ModelWord>> Endings(ModelWord modelWord)
         {
-            throw new System.Exception($"{word}");
+            string word = modelWord.word;
             ModelDictionary dicts = new ModelDictionary();
             dicts.Dict = new Dictionary<string, string>();
 
@@ -63,10 +71,11 @@ namespace GenerationN.Controllers
                 }
                 json = JsonConvert.SerializeObject(dicts.Dict);
             }
-           
+
             await Task.Run(fillingDict);
-            //await Task.Run(() => fillingDict());=
-            return json;
+            //await Task.Run(() => fillingDict());
+            //return json;
+            return CreatedAtAction("Newendings", new { word = json });
         }
         
     }

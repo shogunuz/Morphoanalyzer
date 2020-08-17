@@ -49,9 +49,9 @@ namespace GenerationN.Controllers
 
         // GET: api/endings
         [HttpGet]
-        public async Task<ActionResult<string>> GetEndings(string word)
+        public async Task<ActionResult<string>> GetEndings(Dictionary<string, string> dict)
         {
-            Dictionary<string, string> dict = new Dictionary<string, string>
+            Dictionary<string, string> InnerDict = new Dictionary<string, string>
             {
                 {"Первое окончание","Описание окончания" },
                 {"Второе окончание","Описание второго окончания" },
@@ -61,13 +61,13 @@ namespace GenerationN.Controllers
 
             void GetData()
             {
-                if(string.IsNullOrEmpty(word) == true)
+                if(dict.Count == 0)
                 {
-                    json = JsonConvert.SerializeObject(dict);
+                    json = JsonConvert.SerializeObject(InnerDict);
                 }
                 else
                 {
-                    json = word;
+                    json = JsonConvert.SerializeObject(dict);
                 }
             }
 
@@ -81,10 +81,9 @@ namespace GenerationN.Controllers
         public async Task<ActionResult<ModelWord>> Endings(ModelWord modelWord)
         {
             string word = modelWord.word;
-            ModelDictionary dicts = new ModelDictionary();
-            dicts.Dict = new Dictionary<string, string>();
+            Dictionary<string, string> dicts = new Dictionary<string, string>();
 
-            string json = string.Empty;
+            //string json = string.Empty;
             if (string.IsNullOrEmpty(word))
                 return null;
 
@@ -92,15 +91,15 @@ namespace GenerationN.Controllers
             {
                 foreach (KeyValuePair<string, string> kvp in endings.GetResult(word))
                 {
-                    dicts.Dict.Add(kvp.Key, kvp.Value);
+                    dicts.Add(kvp.Key, kvp.Value);
                 }
-                json = JsonConvert.SerializeObject(dicts.Dict);
+               // json = JsonConvert.SerializeObject(dicts);
             }
 
             await Task.Run(fillingDict);
             //await Task.Run(() => fillingDict());
             //return json;
-            return CreatedAtAction("GetEndings", new { word = json });
+            return CreatedAtAction("GetEndings", dicts);
         }
 
 

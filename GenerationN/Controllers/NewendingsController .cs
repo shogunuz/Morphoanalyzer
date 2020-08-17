@@ -59,7 +59,7 @@ namespace GenerationN.Controllers
             ModelDictionary dicts = new ModelDictionary();
             dicts.Dict = new Dictionary<string, string>();
 
-            string json = string.Empty;
+          //  string json = string.Empty;
             if (string.IsNullOrEmpty(word))
                 return null;
 
@@ -69,13 +69,13 @@ namespace GenerationN.Controllers
                 {
                     dicts.Dict.Add(kvp.Key, kvp.Value);
                 }
-                json = JsonConvert.SerializeObject(dicts.Dict);
+                //json = JsonConvert.SerializeObject(dicts.Dict);
             }
 
             await Task.Run(fillingDict);
             //await Task.Run(() => fillingDict());
             //return json;
-            return CreatedAtAction("Newendings", new { word = json });
+            return CreatedAtAction("Newendings", new { dict = dicts.Dict });
         }
         
     }

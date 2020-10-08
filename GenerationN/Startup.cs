@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Microsoft.EntityFrameworkCore;
+using GenerationN.Models;
 
 namespace GenerationN
 {
@@ -23,6 +25,8 @@ namespace GenerationN
             services.AddControllers()
                 .AddNewtonsoftJson();
 
+            services.AddDbContext<ModelMainContext>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",

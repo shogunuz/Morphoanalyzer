@@ -8,6 +8,8 @@ using System.IO;
 using System.Text;
 using GenerationN.Models;
 using Newtonsoft.Json;
+using System.Net;
+using GenerationN.Features.GetEndingsForLeven;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,6 +20,14 @@ namespace GenerationN.Controllers
     public class EndingsController : ControllerBase
     {
         private GettingEndings endings;
+
+        
+        private Dictionary<string, string> defaultDictionary = new Dictionary<string, string>
+            {
+                {"Первое окончание","Описание окончания" },
+                {"Второе окончание","Описание второго окончания" },
+                {"Корень слова","Что мы получили в итоге..." }
+            };
         public EndingsController()
         {
             endings = new GettingEndings();
@@ -25,49 +35,36 @@ namespace GenerationN.Controllers
 
         // GET: api/endings
         [HttpGet]
-        public async Task<ActionResult<string>> Newendings()
-        {
-            Dictionary<string, string> dict = new Dictionary<string, string>
-            {
-                {"Первое окончание","Описание окончания" },
-                {"Второе окончание","Описание второго окончания" },
-                {"Корень слова","Что мы получили в итоге..." }
-            };
-
-            string json = string.Empty;
-
-            void DeserializeDictToString()
-            {
-                json = JsonConvert.SerializeObject(dict);
-            }
-
-            await Task.Run(DeserializeDictToString);
-            // await Task.Run(() => DeserializeDictToString());
-            return json;
-        }
-
-
-        // GET: api/endings
-        [HttpGet]
         public async Task<ActionResult<string>> GetEndings(Dictionary<string, string> dict)
         {
-            Dictionary<string, string> InnerDict = new Dictionary<string, string>
-            {
-                {"Первое окончание","Описание окончания" },
-                {"Второе окончание","Описание второго окончания" },
-                {"Корень слова","Что мы получили в итоге..." }
-            };
+            /* Я создам строку, в которую помещу последний элемент словаря
+               так как последний элемент словаря это корень слова.
+               Корень слова мне нужен для того, чтобы прогнать его по Exception
+                датасету. 
+             */
+            string lastword;
+           
+
             string json = string.Empty;
 
             void GetData()
             {
                 if(dict.Count == 0)
                 {
-                    json = JsonConvert.SerializeObject(InnerDict);
+                    json = JsonConvert.SerializeObject(this.defaultDictionary);
                 }
                 else
                 {
-                    json = JsonConvert.SerializeObject(dict);
+                    GetListOfEndsFromDB glfromDB = new GetListOfEndsFromDB();
+                    ModelMain mm = glfromDB.GetListOfEnding(dict.Keys.Last());
+                    if(mm.coreWord == "NoName")
+                    {
+                        json = JsonConvert.SerializeObject(dict);
+                    }
+                    else
+                    {
+                        json = JsonConvert.SerializeObject(mm);
+                    }
                 }
             }
 
@@ -83,7 +80,6 @@ namespace GenerationN.Controllers
             string word = modelWord.word;
             Dictionary<string, string> dicts = new Dictionary<string, string>();
 
-            //string json = string.Empty;
             if (string.IsNullOrEmpty(word))
                 return null;
 

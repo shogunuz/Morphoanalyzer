@@ -9,7 +9,6 @@ using System.Text;
 using GenerationN.Models;
 using Newtonsoft.Json;
 using System.Net;
-using GenerationN.Features.GetEndingsForLeven;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -37,38 +36,15 @@ namespace GenerationN.Controllers
         [HttpGet]
         public async Task<ActionResult<string>> GetEndings(Dictionary<string, string> dict)
         {
-            /* Я создам строку, в которую помещу последний элемент словаря
-               так как последний элемент словаря это корень слова.
-               Корень слова мне нужен для того, чтобы прогнать его по Exception
-                датасету. 
-             */
-            string lastword;
-           
-
             string json = string.Empty;
 
-            void GetData()
+            await Task.Run(() =>
             {
-                if(dict.Count == 0)
-                {
-                    json = JsonConvert.SerializeObject(this.defaultDictionary);
-                }
-                else
-                {
-                    GetListOfEndsFromDB glfromDB = new GetListOfEndsFromDB();
-                    ModelMain mm = glfromDB.GetListOfEnding(dict.Keys.Last());
-                    if(mm.coreWord == "NoName")
-                    {
-                        json = JsonConvert.SerializeObject(dict);
-                    }
-                    else
-                    {
-                        json = JsonConvert.SerializeObject(mm);
-                    }
-                }
+                json = (dict.Count == 0) ?
+                    JsonConvert.SerializeObject(this.defaultDictionary) :
+                    json = JsonConvert.SerializeObject(dict);
             }
-
-            await Task.Run(GetData);
+            );
             // await Task.Run(() => DeserializeDictToString());
             return json;
         }
@@ -78,22 +54,19 @@ namespace GenerationN.Controllers
         public async Task<ActionResult<ModelWord>> Endings(ModelWord modelWord)
         {
             string word = modelWord.word;
+            word = word.ToLower();
             Dictionary<string, string> dicts = new Dictionary<string, string>();
 
             if (string.IsNullOrEmpty(word))
                 return null;
 
-            void fillingDict()
+            await Task.Run(()=> 
             {
                 foreach (KeyValuePair<string, string> kvp in endings.GetResult(word))
                 {
                     dicts.Add(kvp.Key, kvp.Value);
                 }
-               // json = JsonConvert.SerializeObject(dicts);
-            }
-
-            await Task.Run(fillingDict);
-            //await Task.Run(() => fillingDict());
+            });
             //return json;
             return CreatedAtAction("GetEndings", dicts);
         }

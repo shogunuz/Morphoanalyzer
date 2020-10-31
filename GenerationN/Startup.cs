@@ -26,8 +26,7 @@ namespace GenerationN
             services.AddControllers()
                 .AddNewtonsoftJson();
 
-            services.AddDbContext<ModelMainContext>(options =>
-             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+          
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",

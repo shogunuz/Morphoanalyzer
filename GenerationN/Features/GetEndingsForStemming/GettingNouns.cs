@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using GenerationN.Features.StaticData;
 using GenerationN.Features.GetEndings;
+using GenerationN.Features;
 
 namespace GenerationN.GetEndings
 {
@@ -16,76 +17,107 @@ namespace GenerationN.GetEndings
 
         private NounEndings nd;
 
-        
+        private Dictionary<string, string> tmpDict;
+
         public GettingNouns(string word)
         {
             this.word = word;
             nd = new NounEndings();
-            
+            tmpDict = new Dictionary<string, string>();
         }
       
+        private int SearchWordFromExSet(string word)
+        {
+            int res = 0;
+            ExceptionNouns exNounEnds = new ExceptionNouns();
+            foreach (KeyValuePair<string, Dictionary<string, string>> kvp in exNounEnds.Dict)
+            {
+                int cnt = StringDistance.GetDamerauLevenshteinDistance(
+                    kvp.Key, word);
 
+                /*
+                 * Если cnt поставить на ноль, то он будет искать слова со 100%-ым
+                 * совпадением, а так, на одну букве делает погрешность,
+                 * допустим слово dadanlar он пропустит, так как отличие всего одна
+                 * буква n (а должно быть dadamlar)
+                 * НАДО БЫ СДЕЛАТЬ РЕКОМЕНДАЦИЮ, ТИПА, ВОЗМОЖНО, ВЫ ИМЕЛИ ВВИДУ это..
+                 */
+                if(cnt <= 1)
+                {
+                    this.tmpDict = kvp.Value;
+                    res = 1;
+                    break;
+                }
+            }
+
+            return res;
+        }
         public Dictionary<string, string> GetEndings()
         {
-            Dictionary<string, string> Dict = new Dictionary<string, string>();
-
-            int mode = 1;
-            
-
-            //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
-            //окончание существительного
-            int processed = 0;
-
-            string mainString = string.Empty;
-
-            for (int i = 4; i > 0; i--)
+            int res = SearchWordFromExSet(this.word);
+            if (res == 1)
             {
-                this.strKey = string.Empty;
-                this.strValue = string.Empty;
-                string key = string.Empty;
-                string value = string.Empty;
-
-
-                if (i == 1)
-                {
-                    mode = 0;
-                }
-
-                foreach (KeyValuePair<string, string> kvp in nd.Dict[i])
-                {
-                    KeyValue(kvp.Key, kvp.Value, mode);
-                    if (strKey.Length > key.Length)
-                    {
-                        key = new string(strKey);
-                        value = new string(strValue);
-                    }
-                }
-
-                if (string.IsNullOrEmpty(key) == false)
-                {
-                    processed++;
-                    Dict.Add(key, value);
-                    mainString = TypeOfMainWord(i);
-                    if (mode == 0)
-                    {
-                        //это нулевой dict, где мы удаляем не окончание, а приставку
-                        this.word = this.word.Remove(0, key.Length);
-                    }
-                    else
-                    {
-                        this.word = this.word.Remove(this.word.Length - key.Length);
-                    }
-                }
-
-                
+                return this.tmpDict;
             }
-
-            if(processed > 0)
+            else
             {
-                Dict.Add(this.word, mainString);
-            }
+                Dictionary<string, string> Dict = new Dictionary<string, string>();
 
-            return Dict;
+                int mode = 1;
+                //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
+                //окончание существительного
+                int processed = 0;
+
+                string mainString = string.Empty;
+
+                for (int i = nd.Dict.Count; i > 0; i--)
+                {
+                    this.strKey = string.Empty;
+                    this.strValue = string.Empty;
+                    string key = string.Empty;
+                    string value = string.Empty;
+
+
+                    if (i == 1)
+                    {
+                        mode = 0;
+                    }
+
+                    foreach (KeyValuePair<string, string> kvp in nd.Dict[i])
+                    {
+                        KeyValue(kvp.Key, kvp.Value, mode);
+                        if (strKey.Length > key.Length)
+                        {
+                            key = new string(strKey);
+                            value = new string(strValue);
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(key) == false)
+                    {
+                        processed++;
+                        Dict.Add(key, value);
+                        mainString = TypeOfMainWord(i);
+                        if (mode == 0)
+                        {
+                            //это нулевой dict, где мы удаляем не окончание, а приставку
+                            this.word = this.word.Remove(0, key.Length);
+                        }
+                        else
+                        {
+                            this.word = this.word.Remove(this.word.Length - key.Length);
+                        }
+                    }
+
+                }
+
+                if (processed > 0)
+                {
+                    Dict.Add(this.word, mainString);
+                }
+
+                return Dict;
+            }
         }
 
         public void KeyValue(string key,  string value, int mode)

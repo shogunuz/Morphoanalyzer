@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/*
+ * Author: N. Abdurakhmonova, 
+ * Assistant: D.Mengliev
+ * Year: 2020
+ * Description: This class contains Noun endings for stemming
+ * Описание: Данный класс содержит окончания существительных для стемминга
+ */
+
 namespace GenerationN.Features.StaticData
 {
     public class NounEndings

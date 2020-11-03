@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/*
+ * Author: N. Abdurakhmonova, 
+ * Assistant: D.Mengliev
+ * Year: 2020
+ * Description: This class implements binary search for strings.
+ * Описание: этот класс реализует двоичный поиск строк.
+ */
+
+
 namespace GenerationN.Features
 {
     public class BinarySearch

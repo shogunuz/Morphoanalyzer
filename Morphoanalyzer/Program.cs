@@ -13,7 +13,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 /*
- * Developers: N. Abdurakhmonova, D.Mengliev
+ * Author: N. Abdurakhmonova, 
+ * Assistant: D.Mengliev
  * Year: 2020
  */
 

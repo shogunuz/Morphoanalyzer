@@ -11,7 +11,8 @@ using Newtonsoft.Json;
 using System.Net;
 
 /*
- * Developers: N. Abdurakhmonova, D.Mengliev
+ * Author: N. Abdurakhmonova, 
+ * Assistant: D.Mengliev
  * Year: 2020
  */
 

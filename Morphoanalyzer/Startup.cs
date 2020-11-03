@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GenerationN.Models;
 
 /*
- * Developers: N. Abdurakhmonova, D.Mengliev
+ * Author: N. Abdurakhmonova, 
+ * Assistant: D.Mengliev
  * Year: 2020
  */
 namespace GenerationN

@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+/*
+ * Author: N. Abdurakhmonova, 
+ * Assistant: D.Mengliev
+ * Year: 2020
+ */
+
 namespace GenerationN.Features
 {
     public class AlgoSubString

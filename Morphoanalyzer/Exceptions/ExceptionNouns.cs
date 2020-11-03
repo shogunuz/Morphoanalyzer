@@ -4,8 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 
 /*
- * Developers: N. Abdurakhmonova, D.Mengliev
+ * Author: N. Abdurakhmonova, 
+ * Assistant: D.Mengliev
  * Year: 2020
+ * Description: This class contains Exception nouns base. System looks for word
+ * here before to start stemming. If it finds out it will return the word. If not,
+ * the system will start stemming.
+ * Описание: Этот класс содержит базу существительных-исключений. Система, прежде
+ * всего ищет слово здесь, и если оно находит его, это слово возвращается в качестве результата.
+ * Если слово не содержится в этом словаре, то система запускает стемминг и полученный
+ * от стемминга результат возвращается стороне, отправившей исходное слово.
  */
 
 namespace GenerationN.Features.StaticData

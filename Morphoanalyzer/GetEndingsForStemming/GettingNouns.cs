@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GenerationN.Features.StaticData;
-using GenerationN.Features.GetEndings;
 using GenerationN.Features;
+using GenerationN.Features.GetEndings;
+using GenerationN.Features.StaticData;
 
 /*
  * Developers: N. Abdurakhmonova, D.Mengliev

@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/* Данный класс реализует алгоритм Ливенштейна, который вычисляет количество 
+ * изменений (в операциях - insert, delete, e.g.) которое нужно сделать для того, 
+ * чтобы содеражение второй строки, было как у первой (string1,string2)
+ * Leven(dadam, dadan) => 1 (Нужна всего лишь одна операция - replace)
+ */
+
 namespace GenerationN.Features
 {
     public static class StringDistance

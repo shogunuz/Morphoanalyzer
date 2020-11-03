@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.EntityFrameworkCore;
 using GenerationN.Models;
 
+/*
+ * Developers: N. Abdurakhmonova, D.Mengliev
+ * Year: 2020
+ */
 namespace GenerationN
 {
     public class Startup
@@ -26,7 +30,8 @@ namespace GenerationN
             services.AddControllers()
                 .AddNewtonsoftJson();
 
-          
+           // services.AddDbContext<ModelMainContext>(options =>
+            // options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll",

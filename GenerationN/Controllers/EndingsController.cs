@@ -10,7 +10,10 @@ using GenerationN.Models;
 using Newtonsoft.Json;
 using System.Net;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+/*
+ * Developers: N. Abdurakhmonova, D.Mengliev
+ * Year: 2020
+ */
 
 namespace GenerationN.Controllers
 {
@@ -54,7 +57,7 @@ namespace GenerationN.Controllers
         public async Task<ActionResult<ModelWord>> Endings(ModelWord modelWord)
         {
             string word = modelWord.word;
-            word = word.ToLower();
+            word = word.ToLower(); 
             Dictionary<string, string> dicts = new Dictionary<string, string>();
 
             if (string.IsNullOrEmpty(word))

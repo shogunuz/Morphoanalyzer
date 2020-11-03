@@ -5,6 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using GenerationN.StaticData;
 
+/*
+ * Developers: N. Abdurakhmonova, D.Mengliev
+ * Year: 2020
+ */
+
 namespace GenerationN.Features
 {
     public class GettingEndings
@@ -27,8 +32,7 @@ namespace GenerationN.Features
                 foreach (KeyValuePair<string, string> kvp in getEnds[i].GetEndings())
                 {
                     InnerDict.Add(kvp.Key, kvp.Value);
-                }
-                //oyinchiq / kelinchak
+                } 
                 resultDictionary[i] = new Dictionary<string, string>(InnerDict);
                 numbers.Add(InnerDict.Count);
             }

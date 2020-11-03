@@ -12,6 +12,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+/*
+ * Developers: N. Abdurakhmonova, D.Mengliev
+ * Year: 2020
+ */
+
 namespace GenerationN
 {
     public class Program

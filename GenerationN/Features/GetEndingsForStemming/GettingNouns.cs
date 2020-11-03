@@ -6,6 +6,10 @@ using GenerationN.Features.StaticData;
 using GenerationN.Features.GetEndings;
 using GenerationN.Features;
 
+/*
+ * Developers: N. Abdurakhmonova, D.Mengliev
+ * Year: 2020
+ */
 namespace GenerationN.GetEndings
 {
     public class GettingNouns : IGetEndings
@@ -15,14 +19,14 @@ namespace GenerationN.GetEndings
 
         private string word;
 
-        private NounEndings nd;
+        private NounEndings nounEndings;
 
         private Dictionary<string, string> tmpDict;
 
         public GettingNouns(string word)
         {
             this.word = word;
-            nd = new NounEndings();
+            nounEndings = new NounEndings();
             tmpDict = new Dictionary<string, string>();
         }
       
@@ -40,8 +44,10 @@ namespace GenerationN.GetEndings
                  * совпадением, а так, на одну букве делает погрешность,
                  * допустим слово dadanlar он пропустит, так как отличие всего одна
                  * буква n (а должно быть dadamlar)
-                 * НАДО БЫ СДЕЛАТЬ РЕКОМЕНДАЦИЮ, ТИПА, ВОЗМОЖНО, ВЫ ИМЕЛИ ВВИДУ это..
+                 * в ближайшей перспективе сделаем систему РЕКОМЕНДАЦИЙ, 
+                 * типа, "возможно, вы имели ввиду это слово"?
                  */
+
                 if(cnt <= 1)
                 {
                     this.tmpDict = kvp.Value;
@@ -70,7 +76,7 @@ namespace GenerationN.GetEndings
 
                 string mainString = string.Empty;
 
-                for (int i = nd.Dict.Count; i > 0; i--)
+                for (int i = nounEndings.Dict.Count; i > 0; i--)
                 {
                     this.strKey = string.Empty;
                     this.strValue = string.Empty;
@@ -83,7 +89,7 @@ namespace GenerationN.GetEndings
                         mode = 0;
                     }
 
-                    foreach (KeyValuePair<string, string> kvp in nd.Dict[i])
+                    foreach (KeyValuePair<string, string> kvp in nounEndings.Dict[i])
                     {
                         KeyValue(kvp.Key, kvp.Value, mode);
                         if (strKey.Length > key.Length)

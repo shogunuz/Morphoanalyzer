@@ -22,7 +22,7 @@ namespace GenerationN.Controllers
     [ApiController]
     public class EndingsController : ControllerBase
     {
-        private GettingEndings endings;
+        private CalcEndings endings;
 
         
         private Dictionary<string, string> defaultDictionary = new Dictionary<string, string>
@@ -33,7 +33,7 @@ namespace GenerationN.Controllers
             }; 
         public EndingsController()
         {
-            endings = new GettingEndings();
+            endings = new CalcEndings();
         }
 
         // GET: api/endings

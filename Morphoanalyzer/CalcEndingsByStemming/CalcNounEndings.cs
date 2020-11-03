@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GenerationN.Features;
-using GenerationN.Features.GetEndings;
-using GenerationN.Features.StaticData;
+using GenerationN.Exceptions;
+using GenerationN.EndingsBase;
+using GenerationN.CalcEndingsByStemming;
 
 /*
  * Developers: N. Abdurakhmonova, D.Mengliev
@@ -12,7 +13,7 @@ using GenerationN.Features.StaticData;
  */
 namespace GenerationN.GetEndings
 {
-    public class GettingNouns : IGetEndings
+    public class CalcNounEndings : IGetEndings
     {
         private string strKey { get; set; }
         private string strValue { get; set; }
@@ -23,7 +24,7 @@ namespace GenerationN.GetEndings
 
         private Dictionary<string, string> tmpDict;
 
-        public GettingNouns(string word)
+        public CalcNounEndings(string word)
         {
             this.word = word;
             nounEndings = new NounEndings();
@@ -128,7 +129,7 @@ namespace GenerationN.GetEndings
 
         public void KeyValue(string key,  string value, int mode)
         {
-            if (CalcEnginsGeneral.CheckEnding(key, this.word, mode))
+            if (CalcEndingsGeneral.CheckEnding(key, this.word, mode))
             {
                 if (this.strKey.Length < key.Length)
                 {

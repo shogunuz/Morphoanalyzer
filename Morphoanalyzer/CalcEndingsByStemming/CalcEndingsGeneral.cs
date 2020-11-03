@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GenerationN.Features.GetEndings
+namespace GenerationN.CalcEndingsByStemming;
 {
-    public class CalcEnginsGeneral
+    public class CalcEndingsGeneral
     {
         public static bool CheckEnding(string key, string word, int mode)
         {

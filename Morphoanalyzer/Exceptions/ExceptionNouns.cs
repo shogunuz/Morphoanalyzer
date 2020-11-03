@@ -16,7 +16,7 @@ using System.Threading.Tasks;
  * от стемминга результат возвращается стороне, отправившей исходное слово.
  */
 
-namespace GenerationN.Features.StaticData
+namespace GenerationN.Exceptions
 {
     public class ExceptionNouns
     {

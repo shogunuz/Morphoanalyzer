@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace GenerationN.GetEndings
 {
-    public class GettingVerbs 
+    public class CalcAdvEndings 
     {
 
         internal void AnalyzingWord(string str)
         {
-            Console.WriteLine($"Verb class: {str}");
+            Console.WriteLine($"Adverb class: {str}");
         }
     }
 }

@@ -12,7 +12,7 @@ using GenerationN.StaticData;
 
 namespace GenerationN.Features
 {
-    public class GettingEndings
+    public class CalcEndings
     {
         public Dictionary<string, string> GetResult(string word)
         {
@@ -23,8 +23,8 @@ namespace GenerationN.Features
             List<int> numbers = new List<int>();
 
             GetEndingsGeneral[] getEnds = new GetEndingsGeneral[2];
-            getEnds[0] = new GetEndingsGeneral(new GettingNouns(word));
-            getEnds[1] = new GetEndingsGeneral(new GettingAdjectives(word));
+            getEnds[0] = new GetEndingsGeneral(new CalcNounEndings(word));
+            getEnds[1] = new GetEndingsGeneral(new CalcAdjEndings(word));
 
             for (int i = 0; i < getEnds.Length; i++)
             {

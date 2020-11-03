@@ -9,7 +9,7 @@ using System.Threading.Tasks;
  * Description: This class contains Adjective endings for stemming
  * Описание: Данный класс содержит окончания прилагательных для стемминга
  */
-namespace GenerationN.Features.StaticData
+namespace GenerationN.EndingsBase
 {
     public class AdjEndings
     {

@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GenerationN.Features.StaticData;
-using GenerationN.Features.GetEndings;
+using GenerationN.EndingsBase;
+using GenerationN.CalcEndingsByStemming;
 
 namespace GenerationN.GetEndings
 {
-    public class GettingAdjectives : IGetEndings
+    public class CalcAdjEndings : IGetEndings
     {
         private Dictionary<string, string> Dict;
         private string strKey { get; set; }
@@ -18,7 +18,7 @@ namespace GenerationN.GetEndings
 
         AdjEndings ad;
 
-        public GettingAdjectives(string word)
+        public CalcAdjEndings(string word)
         {
             this.word = word;
             ad = new AdjEndings();
@@ -80,7 +80,7 @@ namespace GenerationN.GetEndings
 
         public void KeyValue(string key, string value, int mode)
         {
-            if (CalcEnginsGeneral.CheckEnding(key, this.word, mode))
+            if (CalcEndingsGeneral.CheckEnding(key, this.word, mode))
             {
                 if (this.strKey.Length < key.Length)
                 {

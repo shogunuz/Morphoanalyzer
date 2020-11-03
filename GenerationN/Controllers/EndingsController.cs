@@ -29,7 +29,7 @@ namespace GenerationN.Controllers
                 {"Первое окончание","Описание окончания" },
                 {"Второе окончание","Описание второго окончания" },
                 {"Корень слова","Что мы получили в итоге..." }
-            };
+            }; //
         public EndingsController()
         {
             endings = new GettingEndings();

@@ -5,97 +5,103 @@ using System.Linq;
 using System.Threading.Tasks;
 using Morphoanalyzer.EndingsBase;
 using Morphoanalyzer.ExceptionsAndWords;
+using Morphoanalyzer.Exceptions;
+using Morphoanalyzer.Features;
 
 namespace Morphoanalyzer.CalcEndingsByStemming
 {
-    public class CalcAdjEndings : IGetEndings
+    public class CalcAdjEndings : CalcEndingsGeneral, IGetEndings
     {
-        private string strKey { get; set; }
-        private string strValue { get; set; }
-
         private string word;
 
-        AdjEndings ad;
+        AdjEndings adjEndings;
 
+        private ExceptionAdjectives exAdjectives;
+         
         public CalcAdjEndings(string word)
         {
             this.word = word;
-            ad = new AdjEndings();
-            
+            adjEndings = new AdjEndings();
+            TmpDict = new Dictionary<string, string>();
+            exAdjectives = new ExceptionAdjectives();
+            ExceptionDict = new Dictionary<string, Dictionary<string, string>>(exAdjectives.Dict);
         }
 
-        
         public Dictionary<string, string> GetEndings()
         {
-            Dictionary<string, string> Dict = new Dictionary<string, string>();
-
-            //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
-            //окончание прилагательного
-            int processed = 0;
-
-            //if mode is 1, it means that algorithm will stem from right to left
-            //if mode is 0, the stemming algorithm will stem from left to right
-            int mode = 1;
-
-            //This string is used for storing root of the word
-            string rootOfWord = string.Empty;
-
-            for (int i = 7; i > 0; i--)
+            int res = SearchWordFromExSet(this.word);
+            if (res == 1)
             {
-                this.strKey = string.Empty; 
-                this.strValue = string.Empty;
-                string key = string.Empty;
-                string value = string.Empty;
-
-                if (i == 1) { mode = 0; }
-
-                foreach (KeyValuePair<string, string> kvp in ad.Dict[i])
-                {
-                    this.KeyValue(kvp.Key, kvp.Value, mode);
-                    if(strKey.Length > key.Length)
-                    {
-                        key = new string(strKey);
-                        value = new string(strValue);
-                    }
-                }
-
-                if (string.IsNullOrEmpty(key) == false)
-                {
-                    processed++;
-                    Dict.Add(key, value);
-
-                    //We try to determine the root of the word
-                    //1-noun, 2-adj, 3-verb, 4-adverbs
-                    rootOfWord = CalcTypeofRoot.TypeOfRoot(i,2);
-                    if (mode == 0)
-                    {
-                        this.word = this.word.Remove(0, key.Length);
-                    }
-                    else
-                    {
-                        this.word = this.word.Remove(this.word.Length - key.Length);
-                    }
-                }
-
+                CalcEndingsGeneral.exceptionWordInt = 2;//for adj this is 2
+                return this.TmpDict;
             }
-
-            if(processed > 0)
+            else
             {
-                Dict.Add(this.word, rootOfWord);
-            }
+                Dictionary<string, string> Dict = new Dictionary<string, string>();
 
-            return Dict;
-        }
+                //if mode is 1, it means that algorithm will stem from right to left
+                //if mode is 0, the stemming algorithm will stem from left to right
+                int mode = 1;
 
-        public void KeyValue(string key, string value, int mode)
-        {
-            if (CalcEndingsGeneral.CheckEnding(key, this.word, mode))
-            {
-                if (this.strKey.Length < key.Length)
+                //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
+                //окончание существительного
+                int processed = 0;
+
+                //This string is used for storing root of the word
+                //1-noun, 2-adj, 3-verb, 4-adverbs
+                string rootOfWord = string.Empty;
+
+                for (int i = adjEndings.Dict.Count; i > 0; i--)
                 {
-                    this.strKey = key;
-                    this.strValue = value;
+                    string strKey = string.Empty;
+                    string strValue = string.Empty;
+                    string key = string.Empty;
+                    string value = string.Empty;
+
+
+                    if (i == 1)
+                    {
+                        mode = 0;
+                    }
+
+                    foreach (KeyValuePair<string, string> kvp in adjEndings.Dict[i])
+                    {
+                        if (KeyValue(kvp.Key, strKey, mode, this.word))
+                        {
+                            strKey = kvp.Key;
+                            strValue = kvp.Value;
+                        }
+                        if (strKey.Length > key.Length)
+                        {
+                            key = new string(strKey);
+                            value = new string(strValue);
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(key) == false)
+                    {
+                        processed++;
+                        Dict.Add(key, value);
+                        rootOfWord = CalcTypeofRoot.TypeOfRoot(i, 1);
+                        if (mode == 0)
+                        {
+                            //это нулевой dict, где мы удаляем не окончание, а приставку
+                            this.word = this.word.Remove(0, key.Length);
+                        }
+                        else
+                        {
+                            this.word = this.word.Remove(this.word.Length - key.Length);
+                        }
+                    }
+
                 }
+
+                if (processed > 0)
+                {
+                    Dict.Add(this.word, rootOfWord);
+                }
+
+                return Dict;
             }
         }
 

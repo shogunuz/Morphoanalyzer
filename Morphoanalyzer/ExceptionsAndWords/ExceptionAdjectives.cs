@@ -18,34 +18,25 @@ using System.Threading.Tasks;
 
 namespace Morphoanalyzer.Exceptions
 {
-    public class ExceptionNouns
+    public class ExceptionAdjectives
     {
 
         public Dictionary<string, Dictionary<string, string>> Dict;
         public static string personsEndings = "Окончание, формирующее  существительное - личность"; 
         public static string objectEndings = "Окончание, формирующее существительное - предмет или объект";
 
-        public ExceptionNouns()
+        public ExceptionAdjectives()
         {
             Dict = new Dictionary<string, Dictionary<string, string>>
            {
-                {"dadamlar", new Dictionary<string, string>(dadamlar)},
-                {"kelinchak", new Dictionary<string, string>(kelinchak)}
+                {"bahorgi", new Dictionary<string, string>(bahorgi)}
            };
         }
 
-        private static readonly Dictionary<string, string> dadamlar = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> bahorgi = new Dictionary<string, string>()
         {
-            {"dada"," корень слова" },
-            {"m"," вспомогательная частица" },
-            {"lar"," данное окончание используется как ласкательное, а не как" +
-                " окончание предмета или лица множественного числа" }
-        };
-
-        private static readonly Dictionary<string, string> kelinchak = new Dictionary<string, string>()
-        {
-            {"kelin"," корень слова" },
-            {"chack"," данное окончание используется как ласкательное" }
+            {"bahor"," корень слова" },
+            {"gi","Окончания, формирующие прилагательные от существительных bahorgi (ishlar)" }
         };
 
     }

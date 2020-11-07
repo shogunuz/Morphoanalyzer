@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Morphoanalyzer.Features;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,41 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 {
     public class CalcEndingsGeneral
     {
+        public Dictionary<string, string> TmpDict { get; set; }
+
+        protected Dictionary<string, Dictionary<string, string>> ExceptionDict { get; set; }
+
+        public static int exceptionWordInt;
+        public static string exceptionWordStr;
+        protected int SearchWordFromExSet(string word)
+        {
+            int res = 0;
+
+            foreach (KeyValuePair<string, Dictionary<string, string>> kvp in ExceptionDict)
+            {
+                int cnt = StringDistance.GetDamerauLevenshteinDistance(
+                    kvp.Key, word);
+
+                /* Алгоритм Ливенштейна (модицифированный)
+                 * Если cnt поставить на ноль, то он будет искать слова со 100%-ым
+                 * совпадением. А если на 1, то на одну букву будет делать погрешность,
+                 * допустим слово dadanlar он пропустит, так как отличие всего одна
+                 * буква n (а должно быть dadamlar)
+                 * в ближайшей перспективе сделаем систему РЕКОМЕНДАЦИЙ, 
+                 * типа, "возможно, вы имели ввиду это слово"?
+                 */
+
+                if (cnt == 0)
+                {
+                    this.TmpDict = kvp.Value;
+                    res = 1;
+                    break;
+                }
+            }
+
+            return res;
+        }
+
         public static bool CheckEnding(string key, string word, int mode)
         {
             int k = 0;

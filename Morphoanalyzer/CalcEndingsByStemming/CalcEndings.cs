@@ -27,6 +27,7 @@ namespace Morphoanalyzer.Features
             getEnds[0] = new GetEndingsGeneral(new CalcNounEndings(word));
             getEnds[1] = new GetEndingsGeneral(new CalcAdjEndings(word));
 
+           
             for (int i = 0; i < getEnds.Length; i++)
             {
                 InnerDict = new Dictionary<string, string>();
@@ -49,7 +50,14 @@ namespace Morphoanalyzer.Features
                 };
             }
 
-            return resultDictionary[t];
+            //I am checking if the system find out exception word or not
+            //if it found, then, it will return found word
+            return CalcEndingsGeneral.exceptionWordInt switch
+            {
+                1 => resultDictionary[0],
+                2 => resultDictionary[1],
+                _ => resultDictionary[t],
+            };
         }
 
        

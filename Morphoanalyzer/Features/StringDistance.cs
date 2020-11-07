@@ -9,7 +9,7 @@ using System.Threading.Tasks;
  * Leven(dadam, dadan) => 1 (Нужна всего лишь одна операция - replace)
  */
 
-namespace GenerationN.Features
+namespace Morphoanalyzer.Features
 {
     public static class StringDistance
     {

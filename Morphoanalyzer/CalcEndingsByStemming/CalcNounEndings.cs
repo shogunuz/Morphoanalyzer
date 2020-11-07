@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using GenerationN.Features;
-using GenerationN.Exceptions;
 using Morphoanalyzer.EndingsBase;
 using Morphoanalyzer.ExceptionsAndWords;
+using Morphoanalyzer.Exceptions;
+using Morphoanalyzer.Features;
+using DotLiquid.Tags;
 
 /*
  * Developers: N. Abdurakhmonova, D.Mengliev
@@ -13,60 +14,30 @@ using Morphoanalyzer.ExceptionsAndWords;
  */
 namespace Morphoanalyzer.CalcEndingsByStemming
 {
-    public class CalcNounEndings : IGetEndings
+    public class CalcNounEndings: CalcEndingsGeneral, IGetEndings
     {
-
         private string word;
 
         private NounEndings nounEndings;
-        private CalcEndingsGeneral cGeneral;
-
-        private Dictionary<string, string> tmpDict;
-
+        private ExceptionNouns exNounEnds;
         public CalcNounEndings(string word)
         {
             this.word = word;
             nounEndings = new NounEndings();
-            cGeneral = new CalcEndingsGeneral();
-            tmpDict = new Dictionary<string, string>();
+            TmpDict = new Dictionary<string, string>();
+            exNounEnds = new ExceptionNouns();
+            ExceptionDict = new Dictionary<string, Dictionary<string, string>>(exNounEnds.Dict);
         }
       
-        private int SearchWordFromExSet(string word)
-        {
-            int res = 0;
-            ExceptionNouns exNounEnds = new ExceptionNouns();
-            foreach (KeyValuePair<string, Dictionary<string, string>> kvp in exNounEnds.Dict)
-            {
-                int cnt = StringDistance.GetDamerauLevenshteinDistance(
-                    kvp.Key, word);
-
-                /*
-                 * Если cnt поставить на ноль, то он будет искать слова со 100%-ым
-                 * совпадением, а так, на одну букве делает погрешность,
-                 * допустим слово dadanlar он пропустит, так как отличие всего одна
-                 * буква n (а должно быть dadamlar)
-                 * в ближайшей перспективе сделаем систему РЕКОМЕНДАЦИЙ, 
-                 * типа, "возможно, вы имели ввиду это слово"?
-                 */
-
-                if(cnt == 0)
-                {
-                    this.tmpDict = kvp.Value;
-                    res = 1;
-                    break;
-                }
-            }
-
-            return res;
-        }
+       
 
         public Dictionary<string, string> GetEndings()
         {
-            
             int res = SearchWordFromExSet(this.word);
             if (res == 1)
             {
-                return this.tmpDict;
+                CalcEndingsGeneral.exceptionWordInt = 1;//for noun this is 1
+                return this.TmpDict;
             }
             else
             {
@@ -99,7 +70,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 
                     foreach (KeyValuePair<string, string> kvp in nounEndings.Dict[i])
                     {
-                        if(cGeneral.KeyValue(kvp.Key, strKey, mode, this.word))
+                        if(KeyValue(kvp.Key, strKey, mode, this.word))
                         {
                             strKey = kvp.Key;
                             strValue = kvp.Value;
@@ -139,6 +110,5 @@ namespace Morphoanalyzer.CalcEndingsByStemming
         }
 
         
-
     }
 }

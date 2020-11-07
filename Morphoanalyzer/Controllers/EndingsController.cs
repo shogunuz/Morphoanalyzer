@@ -6,9 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using GenerationN.Features;
 using System.IO;
 using System.Text;
-using GenerationN.Models;
 using Newtonsoft.Json;
 using System.Net;
+using Morphoanalyzer.Features;
+using Morphoanalyzer.Models;
 
 /*
  * Author: N. Abdurakhmonova, 
@@ -16,7 +17,7 @@ using System.Net;
  * Year: 2020
  */
 
-namespace GenerationN.Controllers
+namespace Morphoanalyzer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

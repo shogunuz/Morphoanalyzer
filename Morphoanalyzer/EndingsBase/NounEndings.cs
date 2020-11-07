@@ -11,7 +11,7 @@ using System.Threading.Tasks;
  * Описание: Данный класс содержит окончания существительных для стемминга
  */
 
-namespace GenerationN.EndingsBase
+namespace Morphoanalyzer.EndingsBase
 {
     public class NounEndings
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace GenerationN
+namespace Morphoanalyzer
 {
     public class WeatherForecast
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace GenerationN.Controllers
+namespace Morphoanalyzer.Controllers
 {
     [ApiController]
     [Route("[controller]")]

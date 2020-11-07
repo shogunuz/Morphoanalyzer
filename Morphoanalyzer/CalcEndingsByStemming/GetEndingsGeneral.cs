@@ -1,6 +1,7 @@
 ﻿using GenerationN.GetEndings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
+using Morphoanalyzer.CalcEndingsByStemming;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
  * которые ответственны за стемминг слов. (существительные, глаголы и др.)
  */
 
-namespace GenerationN.Features
+namespace Morphoanalyzer.Features
 {
   
     public class GetEndingsGeneral
@@ -34,10 +35,7 @@ namespace GenerationN.Features
             return Parent.GetEndings();
         }
 
-        public void KeyValue(string key, string value, int mode) 
-        {
-            Parent.KeyValue(key, value, mode);
-        }
+      
 
 
     }

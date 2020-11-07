@@ -3,14 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GenerationN.EndingsBase;
-using GenerationN.CalcEndingsByStemming;
+using Morphoanalyzer.EndingsBase;
+using Morphoanalyzer.ExceptionsAndWords;
 
-namespace GenerationN.GetEndings
+namespace Morphoanalyzer.CalcEndingsByStemming
 {
     public class CalcAdjEndings : IGetEndings
     {
-        private Dictionary<string, string> Dict;
         private string strKey { get; set; }
         private string strValue { get; set; }
 
@@ -22,21 +21,28 @@ namespace GenerationN.GetEndings
         {
             this.word = word;
             ad = new AdjEndings();
-            Dict = new Dictionary<string, string>();
+            
         }
 
         
         public Dictionary<string, string> GetEndings()
         {
+            Dictionary<string, string> Dict = new Dictionary<string, string>();
+
             //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
-            //окончание существительного
+            //окончание прилагательного
             int processed = 0;
+
+            //if mode is 1, it means that algorithm will stem from right to left
+            //if mode is 0, the stemming algorithm will stem from left to right
             int mode = 1;
-            string mainString = string.Empty;
+
+            //This string is used for storing root of the word
+            string rootOfWord = string.Empty;
 
             for (int i = 7; i > 0; i--)
             {
-                this.strKey = string.Empty;
+                this.strKey = string.Empty; 
                 this.strValue = string.Empty;
                 string key = string.Empty;
                 string value = string.Empty;
@@ -45,7 +51,7 @@ namespace GenerationN.GetEndings
 
                 foreach (KeyValuePair<string, string> kvp in ad.Dict[i])
                 {
-                    KeyValue(kvp.Key, kvp.Value, mode);
+                    this.KeyValue(kvp.Key, kvp.Value, mode);
                     if(strKey.Length > key.Length)
                     {
                         key = new string(strKey);
@@ -57,7 +63,10 @@ namespace GenerationN.GetEndings
                 {
                     processed++;
                     Dict.Add(key, value);
-                    mainString = TypeOfMainWord(i);
+
+                    //We try to determine the root of the word
+                    //1-noun, 2-adj, 3-verb, 4-adverbs
+                    rootOfWord = CalcTypeofRoot.TypeOfRoot(i,2);
                     if (mode == 0)
                     {
                         this.word = this.word.Remove(0, key.Length);
@@ -72,7 +81,7 @@ namespace GenerationN.GetEndings
 
             if(processed > 0)
             {
-                Dict.Add(this.word, mainString);
+                Dict.Add(this.word, rootOfWord);
             }
 
             return Dict;
@@ -90,38 +99,5 @@ namespace GenerationN.GetEndings
             }
         }
 
-        
-
-        private string TypeOfMainWord(int i) 
-        {
-            string tmp = string.Empty;
-            switch(i)
-            {
-                case 1:
-                    tmp =  $"{StaticData.StaticString.MainString} (существительное)";
-                    break;
-                case 2:
-                    tmp = $"{StaticData.StaticString.MainString} (разные части речи)";
-                    break;
-                case 3:
-                    tmp = $"{StaticData.StaticString.MainString} (сумма существительных или существительное)";
-                    break;
-                case 4:
-                    tmp = $"{StaticData.StaticString.MainString} (сумма прилагательного и существительного)";
-                    break;
-                case 5:
-                    tmp = $"{StaticData.StaticString.MainString} (сумма глагола, существительного и наречия)";
-                    break;
-                case 6:
-                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
-                    break;
-                case 7:
-                    tmp = $"{StaticData.StaticString.MainString} (глагол)";
-                    break;
-                default: return $"{StaticData.StaticString.MainString} (прилагательное)";
-            }
-
-            return tmp;
-        }
     }
 }

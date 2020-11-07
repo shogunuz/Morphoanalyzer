@@ -4,23 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using GenerationN.Features;
 using GenerationN.Exceptions;
-using GenerationN.EndingsBase;
-using GenerationN.CalcEndingsByStemming;
+using Morphoanalyzer.EndingsBase;
+using Morphoanalyzer.ExceptionsAndWords;
 
 /*
  * Developers: N. Abdurakhmonova, D.Mengliev
  * Year: 2020
  */
-namespace GenerationN.GetEndings
+namespace Morphoanalyzer.CalcEndingsByStemming
 {
     public class CalcNounEndings : IGetEndings
     {
-        private string strKey { get; set; }
-        private string strValue { get; set; }
 
         private string word;
 
         private NounEndings nounEndings;
+        private CalcEndingsGeneral cGeneral;
 
         private Dictionary<string, string> tmpDict;
 
@@ -28,6 +27,7 @@ namespace GenerationN.GetEndings
         {
             this.word = word;
             nounEndings = new NounEndings();
+            cGeneral = new CalcEndingsGeneral();
             tmpDict = new Dictionary<string, string>();
         }
       
@@ -49,7 +49,7 @@ namespace GenerationN.GetEndings
                  * типа, "возможно, вы имели ввиду это слово"?
                  */
 
-                if(cnt <= 1)
+                if(cnt == 0)
                 {
                     this.tmpDict = kvp.Value;
                     res = 1;
@@ -59,8 +59,10 @@ namespace GenerationN.GetEndings
 
             return res;
         }
+
         public Dictionary<string, string> GetEndings()
         {
+            
             int res = SearchWordFromExSet(this.word);
             if (res == 1)
             {
@@ -69,18 +71,23 @@ namespace GenerationN.GetEndings
             else
             {
                 Dictionary<string, string> Dict = new Dictionary<string, string>();
-
+                
+                //if mode is 1, it means that algorithm will stem from right to left
+                //if mode is 0, the stemming algorithm will stem from left to right
                 int mode = 1;
+
                 //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
                 //окончание существительного
                 int processed = 0;
 
-                string mainString = string.Empty;
+                //This string is used for storing root of the word
+                //1-noun, 2-adj, 3-verb, 4-adverbs
+                string rootOfWord = string.Empty;
 
                 for (int i = nounEndings.Dict.Count; i > 0; i--)
                 {
-                    this.strKey = string.Empty;
-                    this.strValue = string.Empty;
+                    string strKey = string.Empty;
+                    string strValue = string.Empty;
                     string key = string.Empty;
                     string value = string.Empty;
 
@@ -92,7 +99,11 @@ namespace GenerationN.GetEndings
 
                     foreach (KeyValuePair<string, string> kvp in nounEndings.Dict[i])
                     {
-                        KeyValue(kvp.Key, kvp.Value, mode);
+                        if(cGeneral.KeyValue(kvp.Key, strKey, mode, this.word))
+                        {
+                            strKey = kvp.Key;
+                            strValue = kvp.Value;
+                        }
                         if (strKey.Length > key.Length)
                         {
                             key = new string(strKey);
@@ -104,7 +115,7 @@ namespace GenerationN.GetEndings
                     {
                         processed++;
                         Dict.Add(key, value);
-                        mainString = TypeOfMainWord(i);
+                        rootOfWord = CalcTypeofRoot.TypeOfRoot(i,1);
                         if (mode == 0)
                         {
                             //это нулевой dict, где мы удаляем не окончание, а приставку
@@ -120,53 +131,14 @@ namespace GenerationN.GetEndings
 
                 if (processed > 0)
                 {
-                    Dict.Add(this.word, mainString);
+                    Dict.Add(this.word, rootOfWord);
                 }
 
                 return Dict;
             }
         }
 
-        public void KeyValue(string key,  string value, int mode)
-        {
-            if (CalcEndingsGeneral.CheckEnding(key, this.word, mode))
-            {
-                if (this.strKey.Length < key.Length)
-                {
-                    this.strKey = key;
-                    this.strValue = value;
-                }
-            }
-        }
+        
 
-
-        private string TypeOfMainWord(int i)
-        {
-            string tmp = string.Empty;
-            switch (i)
-            {
-                case 0:
-                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
-                    break;
-                case 1:
-                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
-                    break;
-                case 2:
-                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
-                    break;
-                case 3:
-                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
-                    break;
-                case 4:
-                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
-                    break;
-                case 5:
-                    tmp = $"{StaticData.StaticString.MainString} (существительное)";
-                    break;
-                default: return $"{StaticData.StaticString.MainString} (разные части речи)";
-            }
-
-            return tmp;
-        }
     }
 }

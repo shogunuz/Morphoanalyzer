@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GenerationN.StaticData;
+using Morphoanalyzer.StaticData;
+using Morphoanalyzer.CalcEndingsByStemming;
 
 /*
  * Developers: N. Abdurakhmonova, D.Mengliev
  * Year: 2020
  */
 
-namespace GenerationN.Features
+namespace Morphoanalyzer.Features
 {
     public class CalcEndings
     {

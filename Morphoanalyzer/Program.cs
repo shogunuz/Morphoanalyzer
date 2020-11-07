@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GenerationN.Features;
-using GenerationN.Features.StaticData;
 using GenerationN.GetEndings;
-using GenerationN.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -18,7 +16,7 @@ using Microsoft.Extensions.Logging;
  * Year: 2020
  */
 
-namespace GenerationN
+namespace Morphoanalyzer
 {
     public class Program
     {

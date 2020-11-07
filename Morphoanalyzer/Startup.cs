@@ -5,14 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.EntityFrameworkCore;
-using GenerationN.Models;
 
 /*
  * Author: N. Abdurakhmonova, 
  * Assistant: D.Mengliev
  * Year: 2020
  */
-namespace GenerationN
+namespace Morphoanalyzer
 {
     public class Startup
     {

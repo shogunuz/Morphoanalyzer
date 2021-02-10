@@ -4,14 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-/*
- * 
- *This class is responsible for searching endings of words by using EndingsBase. 
- * Each time we send to this class word, key and mode. Mode decides how we will search 
- * endings, from left to right, or vice versa.
- * Then, algorithm converts both key and word string to array forms. Thanks to this,
- * we can compare a letter by letter
- */
+
 namespace Morphoanalyzer.CalcEndingsByStemming
 {
     public class CalcEndingsGeneral

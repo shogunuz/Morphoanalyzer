@@ -2,16 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Morphoanalyzer.StaticData;
-using Morphoanalyzer.CalcEndingsByStemming;
 
-/*
- * Developers: N. Abdurakhmonova, D.Mengliev
- * Year: 2020
- */
 
-namespace Morphoanalyzer.Features
+namespace Morphoanalyzer.CalcEndingsByStemming
 {
     public class CalcEndings
     {
@@ -23,9 +17,11 @@ namespace Morphoanalyzer.Features
 
             List<int> numbers = new List<int>();
 
-            GetEndingsGeneral[] getEnds = new GetEndingsGeneral[2];
+            GetEndingsGeneral[] getEnds = new GetEndingsGeneral[4];
             getEnds[0] = new GetEndingsGeneral(new CalcNounEndings(word));
             getEnds[1] = new GetEndingsGeneral(new CalcAdjEndings(word));
+            getEnds[2] = new GetEndingsGeneral(new CalcVerbEndings(word));
+            getEnds[3] = new GetEndingsGeneral(new CalcAdvEndings(word));
 
            
             for (int i = 0; i < getEnds.Length; i++)
@@ -42,6 +38,9 @@ namespace Morphoanalyzer.Features
             // Получаю индекс словаря, который содержит больше всего окончаний.
             int t = numbers.IndexOf(numbers.Max<int>());
 
+
+            //Проверяю, есть ли вообще хоть что-то в словаре, если словарь пуст,
+            //то заполняю просто дефолтным значением
             if(resultDictionary[t].Count == 0)
             {
                 resultDictionary[t] = new Dictionary<string, string>
@@ -56,6 +55,8 @@ namespace Morphoanalyzer.Features
             {
                 1 => resultDictionary[0], //1 is Noun
                 2 => resultDictionary[1], //2 is Adjective
+                3 => resultDictionary[2], //3 is Verbs
+                4 => resultDictionary[3], //4 is Adverbs
                 _ => resultDictionary[t], // OR it's noun\adj
             };
         }

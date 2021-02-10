@@ -9,12 +9,7 @@ using Newtonsoft.Json;
 using System.Net;
 using Morphoanalyzer.Features;
 using Morphoanalyzer.Models;
-
-/*
- * Author: N. Abdurakhmonova, 
- * Assistant: D.Mengliev
- * Year: 2020
- */
+using Morphoanalyzer.CalcEndingsByStemming;
 
 namespace Morphoanalyzer.Controllers
 {
@@ -35,7 +30,7 @@ namespace Morphoanalyzer.Controllers
             endings = new CalcEndings();
         }
 
-        // GET: api/endings
+        // GET: api/getEndings
         [HttpGet]
         public async Task<ActionResult<string>> GetEndings(Dictionary<string, string> dict)
         {
@@ -49,34 +44,36 @@ namespace Morphoanalyzer.Controllers
             }
             );
             // await Task.Run(() => DeserializeDictToString());
-           // StaticData.StaticString.SetString(json);
             return json;
         }
-
-        // GET: api/endings
-        [HttpGet]
-        public ActionResult<string> GetEndingsStatic() => StaticData.StaticString.GetResString();
 
         // POST api/Endings
         [HttpPost]
         public async Task<ActionResult<ModelWord>> Endings(ModelWord modelWord)
         {
-            string word = modelWord.ResWord;
-            word = word.ToLower(); 
-            Dictionary<string, string> dicts = new Dictionary<string, string>();
-
+            string word = string.Empty;
+            try
+            {
+                word = modelWord.ResWord;//ResultWord
+                word = word.ToLower();
+            }
+            catch(Exception ex) {
+                return CreatedAtAction("GetEndings", defaultDictionary);
+            }
             if (string.IsNullOrEmpty(word))
-                return null;
+                return CreatedAtAction("GetEndings", defaultDictionary);
+
+            // In case  user sent word(not null) we can start analyzing
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
 
             await Task.Run(()=> 
             {
                 foreach (KeyValuePair<string, string> kvp in endings.GetResult(word))
                 {
-                    dicts.Add(kvp.Key, kvp.Value);
+                    dictionary.Add(kvp.Key, kvp.Value);
                 }
             });
-            //return json;
-            return CreatedAtAction("GetEndings", dicts);
+            return CreatedAtAction("GetEndings", dictionary);
         }
 
 

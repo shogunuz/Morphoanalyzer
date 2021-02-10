@@ -3,18 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-/*
- * Author: N. Abdurakhmonova, 
- * Assistant: D.Mengliev
- * Year: 2020
- * Description: This class contains Exception nouns base. System looks for word
- * here before to start stemming. If it finds out it will return the word. If not,
- * the system will start stemming.
- * Описание: Этот класс содержит базу существительных-исключений. Система, прежде
- * всего ищет слово здесь, и если оно находит его, это слово возвращается в качестве результата.
- * Если слово не содержится в этом словаре, то система запускает стемминг и полученный
- * от стемминга результат возвращается стороне, отправившей исходное слово.
- */
 
 namespace Morphoanalyzer.Exceptions
 {
@@ -22,8 +10,10 @@ namespace Morphoanalyzer.Exceptions
     {
 
         public Dictionary<string, Dictionary<string, string>> Dict;
-        public static string personsEndings = "Окончание, формирующее  существительное - личность"; 
-        public static string objectEndings = "Окончание, формирующее существительное - предмет или объект";
+        public static string personsEndings = "The ending that forms the noun (personality, character)"; 
+        public static string personsEndingsRus = "Окончание, формирующее  существительное - личность"; 
+        public static string objectEndings = "Ending, which forms the noun (object or subject)";
+        public static string objectEndingsRus = "Окончание, формирующее существительное - предмет или объект";
 
         public ExceptionNouns()
         {
@@ -42,14 +32,14 @@ namespace Morphoanalyzer.Exceptions
             {"m"," auxiliary particle" },
             {"lar"," this ending is used as an affectionate, " +
                 "not as an plural ending" },
-            {"dadamlar"," this word is a noun in affectionate form (daddy)" }
+            {"dadamlar"," is a noun in affectionate form (daddy)" }
         };
 
         private static readonly Dictionary<string, string> kelinchak = new Dictionary<string, string>()
         {
             {"kelin"," root word (bride)" },
             {"chak"," this ending is used as an affectionate" },
-            {"kelinchak"," this word is a noun in affectonate form (bride)" },
+            {"kelinchak"," is a noun in affectonate form (bride)" },
         }; 
         
         private static readonly Dictionary<string, string> assalom = new Dictionary<string, string>()

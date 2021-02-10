@@ -7,17 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-/*
- * Author: N. Abdurakhmonova, 
- * Assistant: D.Mengliev
- * Year: 2020
- * Description: This class is used as General(Parent) class for other classes,
- * which are in charge of stemming words (nouns, verbs, adjs and e.g.)
- * Описание: Этот класс используется как родительский для других классов,
- * которые ответственны за стемминг слов. (существительные, глаголы и др.)
- */
-
-namespace Morphoanalyzer.Features
+namespace Morphoanalyzer.CalcEndingsByStemming
 {
   
     public class GetEndingsGeneral

@@ -8,17 +8,14 @@ using Morphoanalyzer.Exceptions;
 using Morphoanalyzer.Features;
 using DotLiquid.Tags;
 
-/*
- * Developers: N. Abdurakhmonova, D.Mengliev
- * Year: 2020
- */
+
 namespace Morphoanalyzer.CalcEndingsByStemming
 {
     public class CalcNounEndings: CalcEndingsGeneral, IGetEndings
     {
         private string word;
 
-        private NounEndings nounEndings;
+        private readonly NounEndings nounEndings;
         public CalcNounEndings(string word)
         {
             this.word = word;
@@ -28,8 +25,6 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 Dictionary<string, string>>(new ExceptionNouns().Dict);
         }
       
-       
-
         public Dictionary<string, string> GetEndings()
         {
             bool res = SearchWordFromExSet(this.word);

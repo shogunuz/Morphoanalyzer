@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Morphoanalyzer.Exceptions
 {
-    public class ExceptionAdjectives
+    public class ExceptionAdverbs
     {
 
         public Dictionary<string, Dictionary<string, string>> Dict;
         public static string personsEndings = "The ending that forms the noun (person)"; 
         public static string objectEndings = "The ending that forms the noun (object)";
 
-        public ExceptionAdjectives()
+        public ExceptionAdverbs()
         {
             Dict = new Dictionary<string, Dictionary<string, string>>
            {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Morphoanalyzer.EndingsBase
 {
-    public class AdjEndings
+    public class AdvEndings
     {
         private static readonly string fromNounToAdj = "Endings that form adjectives from nouns: ";
         private static readonly string fromVerbToAdj = "Endings that form adjectives from verbs: ";
@@ -19,7 +19,7 @@ namespace Morphoanalyzer.EndingsBase
 
         public Dictionary<int, Dictionary<string, string>> Dict;
 
-        public AdjEndings()
+        public AdvEndings()
         {
             Dict = new Dictionary<int, Dictionary<string, string>>
             {

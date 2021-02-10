@@ -6,11 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.EntityFrameworkCore;
 
-/*
- * Author: N. Abdurakhmonova, 
- * Assistant: D.Mengliev
- * Year: 2020
- */
+
 namespace Morphoanalyzer
 {
     public class Startup

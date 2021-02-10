@@ -20,9 +20,10 @@ namespace Morphoanalyzer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EndingsController : ControllerBase
+    public class EndingsNewController : ControllerBase
     {
         private CalcEndings endings;
+
         
         private Dictionary<string, string> defaultDictionary = new Dictionary<string, string>
             {
@@ -30,14 +31,14 @@ namespace Morphoanalyzer.Controllers
                 {"Второе окончание","Описание второго окончания" },
                 {"Корень слова","Что мы получили в итоге..." }
             }; 
-        public EndingsController()
+        public EndingsNewController()
         {
             endings = new CalcEndings();
         }
 
-        // GET: api/endings
+        // GET: api/endingsNew
         [HttpGet]
-        public async Task<ActionResult<string>> GetEndings(Dictionary<string, string> dict)
+        public async Task<ActionResult<string>> GetEndingsNew(Dictionary<string, string> dict)
         {
             string json = string.Empty;
 
@@ -49,17 +50,27 @@ namespace Morphoanalyzer.Controllers
             }
             );
             // await Task.Run(() => DeserializeDictToString());
-           // StaticData.StaticString.SetString(json);
             return json;
         }
 
-        // GET: api/endings
+        // GET: api/GetEndingsFormat
         [HttpGet]
-        public ActionResult<string> GetEndingsStatic() => StaticData.StaticString.GetResString();
+        public async Task<ActionResult<string>> GetEndingsFormat()
+        {
+            string json = string.Empty;
+            await Task.Run(() =>
+            {
+                json = (string.IsNullOrEmpty(StaticData.StaticString.GetResString())) ?
+                    JsonConvert.SerializeObject("") :
+                    json = JsonConvert.SerializeObject(StaticData.StaticString.GetResString());
+            }
+            );
+            return json;
+        }
 
-        // POST api/Endings
+        // POST api/EndingsNew
         [HttpPost]
-        public async Task<ActionResult<ModelWord>> Endings(ModelWord modelWord)
+        public async Task<ActionResult<ModelWord>> EndingsNew(ModelWord modelWord)
         {
             string word = modelWord.ResWord;
             word = word.ToLower(); 
@@ -75,8 +86,16 @@ namespace Morphoanalyzer.Controllers
                     dicts.Add(kvp.Key, kvp.Value);
                 }
             });
-            //return json;
-            return CreatedAtAction("GetEndings", dicts);
+            string json = string.Empty;
+            await Task.Run(() =>
+            {
+                json = (dicts.Count == 0) ?
+                    JsonConvert.SerializeObject(this.defaultDictionary) :
+                    json = JsonConvert.SerializeObject(dicts);
+            }
+           );
+            StaticData.StaticString.SetString(json);
+            return CreatedAtAction("GetEndingsNew", dicts);
         }
 
 

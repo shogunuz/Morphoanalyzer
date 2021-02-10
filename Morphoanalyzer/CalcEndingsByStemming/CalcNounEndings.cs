@@ -19,22 +19,21 @@ namespace Morphoanalyzer.CalcEndingsByStemming
         private string word;
 
         private NounEndings nounEndings;
-        private ExceptionNouns exNounEnds;
         public CalcNounEndings(string word)
         {
             this.word = word;
             nounEndings = new NounEndings();
             TmpDict = new Dictionary<string, string>();
-            exNounEnds = new ExceptionNouns();
-            ExceptionDict = new Dictionary<string, Dictionary<string, string>>(exNounEnds.Dict);
+            ExceptionDict = new Dictionary<string, 
+                Dictionary<string, string>>(new ExceptionNouns().Dict);
         }
       
        
 
         public Dictionary<string, string> GetEndings()
         {
-            int res = SearchWordFromExSet(this.word);
-            if (res == 1)
+            bool res = SearchWordFromExSet(this.word);
+            if (res)
             {
                 CalcEndingsGeneral.exceptionWordInt = 1;//for noun this is 1
                 return this.TmpDict;

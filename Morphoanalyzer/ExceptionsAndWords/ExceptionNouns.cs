@@ -29,24 +29,37 @@ namespace Morphoanalyzer.Exceptions
         {
             Dict = new Dictionary<string, Dictionary<string, string>>
            {
+                {"assalom", new Dictionary<string, string>(assalom)},
                 {"dadamlar", new Dictionary<string, string>(dadamlar)},
-                {"kelinchak", new Dictionary<string, string>(kelinchak)}
+                {"kelinchak", new Dictionary<string, string>(kelinchak)},
+                {"manzara", new Dictionary<string, string>(manzara)}
            };
         }
 
         private static readonly Dictionary<string, string> dadamlar = new Dictionary<string, string>()
         {
-            {"dada"," корень слова" },
-            {"m"," вспомогательная частица" },
-            {"lar"," данное окончание используется как ласкательное, а не как" +
-                " окончание предмета или лица множественного числа" }
+            {"dada"," root word (father)" },
+            {"m"," auxiliary particle" },
+            {"lar"," this ending is used as an affectionate, " +
+                "not as an plural ending" },
+            {"dadamlar"," this word is a noun in affectionate form (daddy)" }
         };
 
         private static readonly Dictionary<string, string> kelinchak = new Dictionary<string, string>()
         {
-            {"kelin"," корень слова" },
-            {"chack"," данное окончание используется как ласкательное" }
+            {"kelin"," root word (bride)" },
+            {"chak"," this ending is used as an affectionate" },
+            {"kelinchak"," this word is a noun in affectonate form (bride)" },
+        }; 
+        
+        private static readonly Dictionary<string, string> assalom = new Dictionary<string, string>()
+        {
+            {"assalom"," root word (Greetings)" }
         };
 
+        private static readonly Dictionary<string, string> manzara = new Dictionary<string, string>()
+        {
+            {"manzara"," root word (view, beautiful view)" }
+        };
     }
 }

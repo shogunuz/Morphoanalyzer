@@ -1,4 +1,4 @@
-﻿using GenerationN.GetEndings;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +46,7 @@ namespace Morphoanalyzer.Features
             {
                 resultDictionary[t] = new Dictionary<string, string>
                 {
-                    {$"{word}", StaticString.NotFounded}
+                    {$"{word}", StaticString.RootWord}
                 };
             }
 
@@ -54,9 +54,9 @@ namespace Morphoanalyzer.Features
             //if it found, then, it will return found word
             return CalcEndingsGeneral.exceptionWordInt switch
             {
-                1 => resultDictionary[0],
-                2 => resultDictionary[1],
-                _ => resultDictionary[t],
+                1 => resultDictionary[0], //1 is Noun
+                2 => resultDictionary[1], //2 is Adjective
+                _ => resultDictionary[t], // OR it's noun\adj
             };
         }
 

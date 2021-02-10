@@ -9,8 +9,16 @@ namespace Morphoanalyzer.StaticData
     {
         public static string NotFounded =
             "Не удалось распознать слово, попробуйте проверить правильно написания";
-        public static string MainString = "Основа слова";
+        public static string RootWord = "Root word";
+
+        private static string ResWord = "";
+
+        public static string SetString(string word) => StaticString.ResWord = word;
+
+        public static string GetResString() => StaticString.ResWord;
+
        
+
 
     }
 }

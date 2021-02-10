@@ -7,6 +7,6 @@ namespace Morphoanalyzer.Models
 {
     public class ModelWord
     {
-        public string word { get; set; }
+        public string ResWord { get; set; }
     }
 }

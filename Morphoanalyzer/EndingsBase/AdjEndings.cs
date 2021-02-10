@@ -2,19 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-/*
- * Author: N. Abdurakhmonova, 
- * Assistant: D.Mengliev
- * Year: 2020
- * Description: This class contains Adjective endings for stemming
- * Описание: Данный класс содержит окончания прилагательных для стемминга
- */
+
 namespace Morphoanalyzer.EndingsBase
 {
     public class AdjEndings
     {
-        private static string fromNounToAdj = "Окончания, формирующие прилагательные от существительных";
-        private static string fromVerbToAdj = "Окончания, формирующие прилагательные от глаголов";
+        private static string fromNounToAdj = "Endings that form adjectives from nouns: ";
+        private static string fromVerbToAdj = "Endings that form adjectives from verbs: ";
         private static string fromOthersToAdj = "Окончания, формирующие прилагательное от других частей речи";
         private static string TwoWords = "Прилагательные, формирующиеся путем слияния двух слов";
         private static string fromSumOfNouns = $"{TwoWords}  (существительное + существительное)";

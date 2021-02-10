@@ -22,33 +22,28 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 
         public static int exceptionWordInt;
         public static string exceptionWordStr;
-        protected int SearchWordFromExSet(string word)
+        protected bool SearchWordFromExSet(string word)
         {
-            int res = 0;
+            //We define string array and set a value to it (keys of ExceptionDict)
+            string[] listOfKeys = ExceptionDict.Keys.ToArray();
 
-            foreach (KeyValuePair<string, Dictionary<string, string>> kvp in ExceptionDict)
+            //we sort listOfKeys, thanks to this, 
+            //we can be sure in the way to use binarySearch
+            Array.Sort(listOfKeys);
+
+            //I set negative value due to this variable can hold 0,
+            //if binarySearch find key in position(0). So, negative value is the best option
+            int key = -1;
+            key = Array.BinarySearch(listOfKeys, word);
+
+            //If key is more than 0 (including itself), then it means that
+            //there is a word in Exception Dict
+            if(key >= 0)
             {
-                int cnt = StringDistance.GetDamerauLevenshteinDistance(
-                    kvp.Key, word);
-
-                /* Алгоритм Ливенштейна (модицифированный)
-                 * Если cnt поставить на ноль, то он будет искать слова со 100%-ым
-                 * совпадением. А если на 1, то на одну букву будет делать погрешность,
-                 * допустим слово dadanlar он пропустит, так как отличие всего одна
-                 * буква n (а должно быть dadamlar)
-                 * в ближайшей перспективе сделаем систему РЕКОМЕНДАЦИЙ, 
-                 * типа, "возможно, вы имели ввиду это слово"?
-                 */
-
-                if (cnt == 0)
-                {
-                    this.TmpDict = kvp.Value;
-                    res = 1;
-                    break;
-                }
+                this.TmpDict = ExceptionDict[word];
+                return true;
             }
-
-            return res;
+            return false;
         }
 
         public static bool CheckEnding(string key, string word, int mode)

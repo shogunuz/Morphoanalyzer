@@ -15,26 +15,26 @@ namespace Morphoanalyzer.ExceptionsAndWords
                 case 1:
                     return i switch
                     {
-                        1 => $"{StaticData.StaticString.MainString} (существительное)",
-                        2 => $"{StaticData.StaticString.MainString} (существительное)",
-                        3 => $"{StaticData.StaticString.MainString} (существительное)",
-                        4 => $"{StaticData.StaticString.MainString} (существительное)",
-                        5 => $"{StaticData.StaticString.MainString} (существительное)",
-                        _ => $"{StaticData.StaticString.MainString} (разные части речи)",
+                        1 => $"{StaticData.StaticString.RootWord} (noun)",
+                        2 => $"{StaticData.StaticString.RootWord} (noun)",
+                        3 => $"{StaticData.StaticString.RootWord} (noun)",
+                        4 => $"{StaticData.StaticString.RootWord} (noun)",
+                        5 => $"{StaticData.StaticString.RootWord} (noun)",
+                        _ => $"{StaticData.StaticString.RootWord} (different parts of speech)",
                     };
                 case 2:
                     return i switch
                     {
-                        1 => $"{StaticData.StaticString.MainString} (существительное)",
-                        2 => $"{StaticData.StaticString.MainString} (разные части речи)",
-                        3 => $"{StaticData.StaticString.MainString} (сумма существительных или существительное)",
-                        4 => $"{StaticData.StaticString.MainString} (сумма прилагательного и существительного)",
-                        5 => $"{StaticData.StaticString.MainString} (сумма глагола, существительного и наречия)",
-                        6 => $"{StaticData.StaticString.MainString} (существительное)",
-                        7 => $"{StaticData.StaticString.MainString} (глагол)",
-                        _ => $"{StaticData.StaticString.MainString} (прилагательное)",
+                        1 => $"{StaticData.StaticString.RootWord} (noun)",
+                        2 => $"{StaticData.StaticString.RootWord} (different parts of speech)",
+                        3 => $"{StaticData.StaticString.RootWord} (sun of nouns)",
+                        4 => $"{StaticData.StaticString.RootWord} (sum of noun(s) and adjective(s))",
+                        5 => $"{StaticData.StaticString.RootWord} (sum of verb(s), noun(s) and adverb(s))",
+                        6 => $"{StaticData.StaticString.RootWord} (noun)",
+                        7 => $"{StaticData.StaticString.RootWord} (verb)",
+                        _ => $"{StaticData.StaticString.RootWord} (adjective)",
                     };
-                default: return $"{StaticData.StaticString.MainString} не известна";
+                default: return $"{StaticData.StaticString.RootWord} unknown";
             }
            
         }

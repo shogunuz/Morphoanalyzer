@@ -4,9 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 /*
- * Author: N. Abdurakhmonova, 
- * Assistant: D.Mengliev
- * Year: 2020
+ * Year: 2020-2021
  * Description: This class contains Exception nouns base. System looks for word
  * here before to start stemming. If it finds out it will return the word. If not,
  * the system will start stemming.
@@ -22,22 +20,31 @@ namespace Morphoanalyzer.Exceptions
     {
 
         public Dictionary<string, Dictionary<string, string>> Dict;
-        public static string personsEndings = "Окончание, формирующее  существительное - личность"; 
-        public static string objectEndings = "Окончание, формирующее существительное - предмет или объект";
+        public static string personsEndings = "The ending that forms the noun (person)"; 
+        public static string objectEndings = "The ending that forms the noun (object)";
 
         public ExceptionAdjectives()
         {
             Dict = new Dictionary<string, Dictionary<string, string>>
            {
-                {"bahorgi", new Dictionary<string, string>(bahorgi)}
+                {"bahorgi", new Dictionary<string, string>(bahorgi)},
+                {"guzal", new Dictionary<string, string>(guzal)}
+
            };
         }
 
         private static readonly Dictionary<string, string> bahorgi = new Dictionary<string, string>()
         {
-            {"bahor"," корень слова" },
-            {"gi","Окончания, формирующие прилагательные от существительных bahorgi (ishlar)" }
+            {"bahor","Root word (n. Spring)" },
+            {"gi","Endings that form adjectives from nouns: bahorgi (adj. spring)" }
         };
+
+        private static readonly Dictionary<string, string> guzal = new Dictionary<string, string>()
+        {
+            {"guzal","Root word (beautiful)" }
+        };
+
+        
 
     }
 }

@@ -1,4 +1,4 @@
-﻿using GenerationN.Features;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,8 +29,8 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 
         public Dictionary<string, string> GetEndings()
         {
-            int res = SearchWordFromExSet(this.word);
-            if (res == 1)
+            bool res = SearchWordFromExSet(this.word);
+            if (res)
             {
                 CalcEndingsGeneral.exceptionWordInt = 2;//for adj this is 2
                 return this.TmpDict;

@@ -14,15 +14,18 @@ namespace Morphoanalyzer.CalcEndingsByStemming
     {
 
         private string word;
+        private string Originword;
 
         private readonly VerbEndings verbEndings;
+        private ExceptionVerbs exVerbs;
         public CalcVerbEndings(string word)
         {
             this.word = word;
+            this.Originword = word;
             verbEndings = new VerbEndings();
             TmpDict = new Dictionary<string, string>();
-            ExceptionDict = new Dictionary<string,
-                Dictionary<string, string>>(new ExceptionVerbs().Dict);
+            exVerbs = new ExceptionVerbs();
+            ExceptionDict = new Dictionary<string,Dictionary<string, string>>(exVerbs.Dict);
         }
 
         public Dictionary<string, string> GetEndings()
@@ -80,7 +83,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                     {
                         processed++;
                         Dict.Add(key, value);
-                        rootOfWord = CalcTypeofRoot.TypeOfRoot(i, 1);
+                        rootOfWord = CalcTypeofRoot.TypeOfRoot(i, 6);
                         if (mode == 0)
                         {
                             //это нулевой dict, где мы удаляем не окончание, а приставку
@@ -97,6 +100,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 if (processed > 0)
                 {
                     Dict.Add(this.word, rootOfWord);
+                    Dict.Add(this.Originword, " belongs to Verb");
                 }
 
                 return Dict;

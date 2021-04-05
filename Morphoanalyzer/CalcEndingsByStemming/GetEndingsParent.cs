@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace Morphoanalyzer.CalcEndingsByStemming
 {
   
-    public class GetEndingsGeneral
+    public class GetEndingsParent
     {
         
         public IGetEndings Parent { get; set; }
 
-        public GetEndingsGeneral(IGetEndings parent)
+        public GetEndingsParent(IGetEndings parent)
         {
             this.Parent = parent;
         }

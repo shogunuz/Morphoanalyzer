@@ -9,7 +9,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 {
     public class CalcEndingsGeneral
     {
-        public Dictionary<string, string> TmpDict { get; set; }
+        protected Dictionary<string, string> TmpDict { get; set; }
 
         protected Dictionary<string, Dictionary<string, string>> ExceptionDict { get; set; }
 
@@ -31,10 +31,24 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 
             //If key is more than 0 (including itself), then it means that
             //there is a word in Exception Dict
-            if(key >= 0)
+            if (key >= 0)
             {
                 this.TmpDict = ExceptionDict[word];
                 return true;
+            }
+            else {
+                ///We launch Levenstein Algrorithm
+                for (int i = 0; i < listOfKeys.Length; i++)
+                {
+                    int t = StringDistance.GetDamerauLevenshteinDistance(listOfKeys[i], word);
+                    if (t <= 1)
+                    {
+                        this.TmpDict = ExceptionDict[listOfKeys[i]];
+                        this.TmpDict.Add("Perhaps, you meant: ", listOfKeys[i]);
+
+                        return true;
+                    }
+                }
             }
             return false;
         }

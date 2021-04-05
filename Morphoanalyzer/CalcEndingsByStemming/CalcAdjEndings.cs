@@ -13,6 +13,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
     public class CalcAdjEndings : CalcEndingsGeneral, IGetEndings
     {
         private string word;
+        private string Originword;
 
         AdjEndings adjEndings;
 
@@ -21,6 +22,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
         public CalcAdjEndings(string word)
         {
             this.word = word;
+            this.Originword = word;
             adjEndings = new AdjEndings();
             TmpDict = new Dictionary<string, string>();
             exAdjectives = new ExceptionAdjectives();
@@ -99,6 +101,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 if (processed > 0)
                 {
                     Dict.Add(this.word, rootOfWord);
+                    Dict.Add(this.Originword, " belongs to Adjective");
                 }
 
                 return Dict;

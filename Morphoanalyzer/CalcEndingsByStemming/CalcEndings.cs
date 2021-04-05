@@ -11,37 +11,35 @@ namespace Morphoanalyzer.CalcEndingsByStemming
     {
         public Dictionary<string, string> GetResult(string word)
         {
-            Dictionary<string, string>[] resultDictionary = new Dictionary<string, string>[2];
-
-            Dictionary<string, string> InnerDict;
-
-            List<int> numbers = new List<int>();
-
-            GetEndingsGeneral[] getEnds = new GetEndingsGeneral[4];
-            getEnds[0] = new GetEndingsGeneral(new CalcNounEndings(word));
-            getEnds[1] = new GetEndingsGeneral(new CalcAdjEndings(word));
-            getEnds[2] = new GetEndingsGeneral(new CalcVerbEndings(word));
-            getEnds[3] = new GetEndingsGeneral(new CalcAdvEndings(word));
-
-           
-            for (int i = 0; i < getEnds.Length; i++)
+            int last_index = word.Length;
+            List<int> numberOfElementsInDict = new List<int>();
+            Dictionary<string, string>[] InnerDict =
+                new Dictionary<string, string>[last_index];
+            int k = 0;
+            for(int i = last_index-1; i >= 0; i--)
             {
-                InnerDict = new Dictionary<string, string>();
-                foreach (KeyValuePair<string, string> kvp in getEnds[i].GetEndings())
-                {
-                    InnerDict.Add(kvp.Key, kvp.Value);
-                } 
-                resultDictionary[i] = new Dictionary<string, string>(InnerDict);
-                numbers.Add(InnerDict.Count);
+                InnerDict[k] = new Dictionary<string, string>(GetResultPrivate(word.Remove(last_index - k)));
+                numberOfElementsInDict.Add(InnerDict[k].Count);
+                k++;
             }
+            
+            //Возвращаем результат если словарь пуст
+            //InnerDict["Message"] = StaticString.NotFoundedEng;
 
+            return CalcBiggestDict(InnerDict,numberOfElementsInDict,word);
+        }
+        private Dictionary<string, string> CalcBiggestDict(
+            Dictionary<string, string>[] resultDictionary,
+            List<int> numberOfElementsInDict,
+            string word)
+        {
             // Получаю индекс словаря, который содержит больше всего окончаний.
-            int t = numbers.IndexOf(numbers.Max<int>());
+            int t = numberOfElementsInDict.IndexOf(numberOfElementsInDict.Max<int>());
 
 
             //Проверяю, есть ли вообще хоть что-то в словаре, если словарь пуст,
             //то заполняю просто дефолтным значением
-            if(resultDictionary[t].Count == 0)
+            if (resultDictionary[t].Count == 0)
             {
                 resultDictionary[t] = new Dictionary<string, string>
                 {
@@ -59,6 +57,37 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 4 => resultDictionary[3], //4 is Adverbs
                 _ => resultDictionary[t], // OR it's noun\adj
             };
+        }
+        private Dictionary<string, string> GetResultPrivate(string word)
+        {
+
+            const int N = 5;
+
+            Dictionary<string, string>[] resultDictionary = 
+                new Dictionary<string, string>[N-1];
+
+            Dictionary<string, string> InnerDict;
+
+            List<int> numberOfElementsInDict = new List<int>();
+            GetEndingsParent[] getEnds = new GetEndingsParent[N-1];
+            getEnds[0] = new GetEndingsParent(new CalcNounEndings(word));
+            getEnds[1] = new GetEndingsParent(new CalcAdjEndings(word));
+            getEnds[2] = new GetEndingsParent(new CalcVerbEndings(word));
+            getEnds[3] = new GetEndingsParent(new CalcAdvEndings(word));
+
+           
+            for (int i = 0; i < getEnds.Length; i++)
+            {
+                InnerDict = new Dictionary<string, string>();
+                foreach (KeyValuePair<string, string> kvp in getEnds[i].GetEndings())
+                {
+                    InnerDict.Add(kvp.Key, kvp.Value);
+                } 
+                resultDictionary[i] = new Dictionary<string, string>(InnerDict);
+                numberOfElementsInDict.Add(InnerDict.Count);
+            }
+
+            return CalcBiggestDict(resultDictionary,numberOfElementsInDict,word);
         }
 
        

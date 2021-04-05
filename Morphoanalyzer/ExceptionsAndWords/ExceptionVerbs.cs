@@ -20,7 +20,9 @@ namespace Morphoanalyzer.Exceptions
            {
                 {"ishlamadi", new Dictionary<string, string>(ishlamadi)},
                 {"ishlamadim", new Dictionary<string, string>(ishlamadim)},
-                {"gapir", new Dictionary<string, string>(gapir)}
+                {"gapir", new Dictionary<string, string>(gapir)},
+                {"gapirmoq", new Dictionary<string, string>(gapirmoq)},
+                {"so'zlamoq", new Dictionary<string, string>(sozlamoq)}
 
            };
         }
@@ -47,6 +49,18 @@ namespace Morphoanalyzer.Exceptions
             {"gapir"," root word, verb (to speak), used for pronouns: you, they, we" }
         };
 
+        private static readonly Dictionary<string, string> gapirmoq = new Dictionary<string, string>()
+        {
+            {"gapir"," root word, verb (to speak), used for pronouns: you, they, we" },
+            {"moq"," verb ending" }
+        };
+
+        private static readonly Dictionary<string, string> sozlamoq = new Dictionary<string, string>()
+        {
+            {"so'z"," root word, noun (a word)" },
+            {"la"," affix, which is used to give order to someone" },
+            {"moq"," verb ending" }
+        };
 
 
     }

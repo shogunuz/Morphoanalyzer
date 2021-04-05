@@ -7,6 +7,8 @@ namespace Morphoanalyzer.StaticData
 {
     public class StaticString
     {
+        public static string NotFoundedEng =
+            "The system could not analyze the word";
         public static string NotFounded =
             "Не удалось распознать слово, попробуйте проверить правильно написания";
         public static string RootWord = "Root word";

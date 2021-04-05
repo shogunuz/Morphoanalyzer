@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Morphoanalyzer
 {
@@ -60,8 +60,12 @@ namespace Morphoanalyzer
             {
                 endpoints.MapControllers();
             });
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
-         
+
         }
     }
 }

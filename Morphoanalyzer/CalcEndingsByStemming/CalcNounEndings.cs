@@ -14,11 +14,13 @@ namespace Morphoanalyzer.CalcEndingsByStemming
     public class CalcNounEndings: CalcEndingsGeneral, IGetEndings
     {
         private string word;
+        private string Originword;
 
         private readonly NounEndings nounEndings;
         public CalcNounEndings(string word)
         {
             this.word = word;
+            this.Originword = word;
             nounEndings = new NounEndings();
             TmpDict = new Dictionary<string, string>();
             ExceptionDict = new Dictionary<string, 
@@ -27,14 +29,13 @@ namespace Morphoanalyzer.CalcEndingsByStemming
       
         public Dictionary<string, string> GetEndings()
         {
-            bool res = SearchWordFromExSet(this.word);
-            if (res)
+            if (SearchWordFromExSet(this.word))
             {
                 CalcEndingsGeneral.exceptionWordInt = 1;//for noun this is 1
                 return this.TmpDict;
             }
-            else
-            {
+            
+                //////////////////
                 Dictionary<string, string> Dict = new Dictionary<string, string>();
                 
                 //if mode is 1, it means that algorithm will stem from right to left
@@ -97,10 +98,10 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 if (processed > 0)
                 {
                     Dict.Add(this.word, rootOfWord);
+                    Dict.Add(this.Originword, " belongs to Noun");
                 }
-
                 return Dict;
-            }
+            
         }
 
         

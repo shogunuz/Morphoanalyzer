@@ -7,9 +7,9 @@ namespace Morphoanalyzer.EndingsBase
     public class VerbEndings
     {
         private static readonly string personal_affix_singular =
-        " It is personnal affix of singular form, which is added after consonant or vowel";
+        " It is personal affix of singular form, which is added after consonant or vowel";
         private static readonly string personal_affix_plural =
-        " It is personnal affix of plural form, which is added after consonant or vowel";
+        " It is personal affix of plural form, which is added after consonant or vowel";
 
         private static readonly string pc_affix =
         " It is present-continuous affix, which is added after (root) verb";
@@ -35,7 +35,7 @@ namespace Morphoanalyzer.EndingsBase
         private static readonly Dictionary<string, string> verb_end_plural
             = new Dictionary<string, string>()
         {
-            {"lar", " plural ending of plural" }
+            {"pristavkaForVerb1", " preAffix in verb word" }
         };
         //Present-Future tense verbs' endings. (both singular and plural)
         private static readonly Dictionary<string, string> verb_end_pf
@@ -46,7 +46,9 @@ namespace Morphoanalyzer.EndingsBase
             {"di", personal_affix_singular },
             {"miz", personal_affix_plural },
             {"siz", personal_affix_plural },
-            {"dilar", personal_affix_plural }
+            {"dilar", personal_affix_plural },
+            {"lar", " plural ending of plural" },
+            {"moq", " verb ending" }
         };
 
         //Present-continuous  tense verbs' endings. (both singular and plural)

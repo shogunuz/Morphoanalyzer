@@ -55,7 +55,6 @@ namespace Morphoanalyzer.Controllers
             try
             {
                 word = modelWord.ResWord;//ResultWord
-                word = word.ToLower();
             }
             catch(Exception ex) {
                 return CreatedAtAction("GetEndings", defaultDictionary);
@@ -63,6 +62,7 @@ namespace Morphoanalyzer.Controllers
             if (string.IsNullOrEmpty(word))
                 return CreatedAtAction("GetEndings", defaultDictionary);
 
+            word = word.ToLower();
             // In case  user sent word(not null) we can start analyzing
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
 

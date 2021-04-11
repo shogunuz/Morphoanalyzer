@@ -19,37 +19,32 @@ namespace Morphoanalyzer.Exceptions
         {
             Dict = new Dictionary<string, Dictionary<string, string>>
            {
-                {"assalom", new Dictionary<string, string>(assalom)},
-                {"dadamlar", new Dictionary<string, string>(dadamlar)},
-                {"kelinchak", new Dictionary<string, string>(kelinchak)},
-                {"manzara", new Dictionary<string, string>(manzara)}
+                {"buzdin", new Dictionary<string, string>(buzdin)},
+                {"ava", new Dictionary<string, string>(xa)},
+                {"vagi'rdi", new Dictionary<string, string>(vagirdi)},
+                {"xo'sh", new Dictionary<string, string>(xair)}
            };
         }
 
-        private static readonly Dictionary<string, string> dadamlar = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> buzdin = new Dictionary<string, string>()
         {
-            {"dada"," root word (father)" },
-            {"m"," auxiliary particle" },
-            {"lar"," this ending is used as an affectionate, " +
-                "not as an plural ending" },
-            {"dadamlar"," is a noun in affectionate form (daddy)" }
+            {"muz"," root word (ice)" },
+            {"day"," ending, which forms adj from noun" }
         };
 
-        private static readonly Dictionary<string, string> kelinchak = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> vagirdi = new Dictionary<string, string>()
         {
-            {"kelin"," root word (bride)" },
-            {"chak"," this ending is used as an affectionate" },
-            {"kelinchak"," is a noun in affectonate form (bride)" },
+            {"shovqin"," root word (noise)" }
         }; 
         
-        private static readonly Dictionary<string, string> assalom = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> xa = new Dictionary<string, string>()
         {
-            {"assalom"," root word (Greetings)" }
+            {"xa"," root word (yes)" }
         };
 
-        private static readonly Dictionary<string, string> manzara = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> xair = new Dictionary<string, string>()
         {
-            {"manzara"," root word (view, beautiful view)" }
+            {"xair"," root word (bye)" }
         };
     }
 }

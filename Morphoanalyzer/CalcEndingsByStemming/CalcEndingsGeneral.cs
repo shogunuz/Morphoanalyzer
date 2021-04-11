@@ -1,4 +1,5 @@
-﻿using Morphoanalyzer.Features;
+﻿using Morphoanalyzer.Exceptions;
+using Morphoanalyzer.Features;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,30 +11,40 @@ namespace Morphoanalyzer.CalcEndingsByStemming
     public class CalcEndingsGeneral
     {
         protected Dictionary<string, string> TmpDict { get; set; }
-
+        
+        protected Dictionary<string, Dictionary<string, string>> KhorezmDict { get; set; }
         protected Dictionary<string, Dictionary<string, string>> ExceptionDict { get; set; }
 
         public static int exceptionWordInt;
         public static string exceptionWordStr;
+      
         protected bool SearchWordFromExSet(string word)
         {
+
             //We define string array and set a value to it (keys of ExceptionDict)
             string[] listOfKeys = ExceptionDict.Keys.ToArray();
+            string[] listOfKhorezmKeys = KhorezmDict.Keys.ToArray();
 
             //we sort listOfKeys, thanks to this, 
             //we can be sure in the way to use binarySearch
             Array.Sort(listOfKeys);
+            Array.Sort(listOfKhorezmKeys);
 
             //I set negative value due to this variable can hold 0,
             //if binarySearch find key in position(0). So, negative value is the best option
-            int key = -1;
-            key = Array.BinarySearch(listOfKeys, word);
+            int key1 = Array.BinarySearch(listOfKeys, word);
+            int key2 = Array.BinarySearch(listOfKhorezmKeys, word);
 
             //If key is more than 0 (including itself), then it means that
             //there is a word in Exception Dict
-            if (key >= 0)
+            if (key1 >= 0)
             {
                 this.TmpDict = ExceptionDict[word];
+                return true;
+            }
+            else if(key2 >= 0)
+            {
+                this.TmpDict = KhorezmDict[word];
                 return true;
             }
             else {
@@ -41,7 +52,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 for (int i = 0; i < listOfKeys.Length; i++)
                 {
                     int t = StringDistance.GetDamerauLevenshteinDistance(listOfKeys[i], word);
-                    if (t <= 1)
+                    if (t <= 2)
                     {
                         this.TmpDict = ExceptionDict[listOfKeys[i]];
                         this.TmpDict.Add("Perhaps, you meant: ", listOfKeys[i]);
@@ -49,7 +60,20 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                         return true;
                     }
                 }
+                for (int i = 0; i < listOfKhorezmKeys.Length; i++)
+                {
+                    int t = StringDistance.GetDamerauLevenshteinDistance(listOfKhorezmKeys[i], word);
+                    if (t <= 2)
+                    {
+                        this.TmpDict = KhorezmDict[listOfKhorezmKeys[i]];
+                        this.TmpDict.Add("Perhaps, you meant: ", listOfKhorezmKeys[i]);
+
+                        return true;
+                    }
+                }
             }
+            
+
             return false;
         }
 

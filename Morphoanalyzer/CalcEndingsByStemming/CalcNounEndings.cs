@@ -17,7 +17,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
         private string Originword;
 
         private readonly NounEndings nounEndings;
-        public CalcNounEndings(string word)
+        public CalcNounEndings(string word) 
         {
             this.word = word;
             this.Originword = word;
@@ -25,6 +25,8 @@ namespace Morphoanalyzer.CalcEndingsByStemming
             TmpDict = new Dictionary<string, string>();
             ExceptionDict = new Dictionary<string, 
                 Dictionary<string, string>>(new ExceptionNouns().Dict);
+            KhorezmDict = new Dictionary<string,
+            Dictionary<string, string>>(new KhorezmUzbekWords().Dict);
         }
       
         public Dictionary<string, string> GetEndings()

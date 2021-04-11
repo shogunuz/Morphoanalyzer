@@ -18,7 +18,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
             int k = 0;
             for(int i = last_index-1; i >= 0; i--)
             {
-                InnerDict[k] = new Dictionary<string, string>(GetResultPrivate(word.Remove(last_index - k)));
+                InnerDict[k] = new Dictionary<string, string>(GetResultPrivate(word.Remove(i,k)));
                 numberOfElementsInDict.Add(InnerDict[k].Count);
                 k++;
             }
@@ -75,7 +75,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
             getEnds[2] = new GetEndingsParent(new CalcVerbEndings(word));
             getEnds[3] = new GetEndingsParent(new CalcAdvEndings(word));
 
-           
+
             for (int i = 0; i < getEnds.Length; i++)
             {
                 InnerDict = new Dictionary<string, string>();

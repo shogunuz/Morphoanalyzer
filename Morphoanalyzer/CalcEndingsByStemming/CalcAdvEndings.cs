@@ -24,6 +24,8 @@ namespace Morphoanalyzer.CalcEndingsByStemming
             TmpDict = new Dictionary<string, string>();
             exAdverbs = new ExceptionAdverbs();
             ExceptionDict = new Dictionary<string, Dictionary<string, string>>(exAdverbs.Dict);
+            KhorezmDict = new Dictionary<string,
+           Dictionary<string, string>>(new KhorezmUzbekWords().Dict);
         }
 
         public Dictionary<string, string> GetEndings()

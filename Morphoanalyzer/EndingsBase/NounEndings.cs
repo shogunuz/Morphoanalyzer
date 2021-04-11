@@ -81,7 +81,7 @@ namespace Morphoanalyzer.EndingsBase
             {"ngiz","2nd person, vowel endings, plural" },
             {"ingiz","2nd person, consonant endings, plural" },
             {"si","3rd person, vowel endings, singular" },
-            {"i","3rd person, vowel endings, singular" },
+           // {"i","3rd person, vowel endings, singular" },
            };
 
         private static readonly Dictionary<string, string> NounEndsThree = new Dictionary<string, string>()

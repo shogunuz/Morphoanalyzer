@@ -35,14 +35,9 @@ namespace Morphoanalyzer.Controllers
         public async Task<ActionResult<string>> GetEndings(Dictionary<string, string> dict)
         {
             string json = string.Empty;
-
-            await Task.Run(() =>
-            {
-                json = (dict.Count == 0) ?
+            json = (dict.Count == 0) ?
                     JsonConvert.SerializeObject(this.defaultDictionary) :
                     json = JsonConvert.SerializeObject(dict);
-            }
-            );
             // await Task.Run(() => DeserializeDictToString());
             return json;
         }
@@ -66,13 +61,10 @@ namespace Morphoanalyzer.Controllers
             // In case  user sent word(not null) we can start analyzing
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
 
-            await Task.Run(()=> 
+            foreach (KeyValuePair<string, string> kvp in endings.GetResult(word))
             {
-                foreach (KeyValuePair<string, string> kvp in endings.GetResult(word))
-                {
-                    dictionary.Add(kvp.Key, kvp.Value);
-                }
-            });
+                dictionary.Add(kvp.Key, kvp.Value);
+            }
             return CreatedAtAction("GetEndings", dictionary);
         }
 

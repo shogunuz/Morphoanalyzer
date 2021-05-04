@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Morphoanalyzer.Exceptions;
+using Morphoanalyzer.Features;
 using Morphoanalyzer.StaticData;
 
 
@@ -9,24 +11,53 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 {
     public class CalcEndings
     {
+        private Dictionary<string, Dictionary<string, string>> KhorezmDict;
+        protected Dictionary<string, string> KhorezmDictForReturn { get; set; }
+        public CalcEndings()
+        { 
+            KhorezmDict = new Dictionary<string, Dictionary<string, 
+                string>>(new KhorezmUzbekWords().Dict);
+        }
+        private string MainWord { get; set; }
         public Dictionary<string, string> GetResult(string word)
         {
             int last_index = word.Length;
             List<int> numberOfElementsInDict = new List<int>();
-            Dictionary<string, string>[] InnerDict =
-                new Dictionary<string, string>[last_index];
+
+            ///Вычисляем по KhorezmDict слово
+            string[] listOfKhorezmKeys = KhorezmDict.Keys.ToArray();
+            Array.Sort(listOfKhorezmKeys);
+            int key2 = Array.BinarySearch(listOfKhorezmKeys, word);
+            for (int i = 0; i < listOfKhorezmKeys.Length; i++)
+            {
+                int t = 0;
+                t = StringDistance.GetDamerauLevenshteinDistance(listOfKhorezmKeys[i], word);
+                if (t <= 2)
+                {
+                    this.KhorezmDictForReturn = KhorezmDict[listOfKhorezmKeys[i]];
+                    this.KhorezmDictForReturn.Add("Perhaps, you meant this Khorezm word: ", listOfKhorezmKeys[i]);
+                    return KhorezmDictForReturn;
+                }
+            }
+
+           // Dictionary<string, string>[] InnerDict =
+              //  new Dictionary<string, string>[last_index];
+            Dictionary<string, string> InnerDict =
+                new Dictionary<string, string>();
             int k = 0;
+            /*
             for(int i = last_index-1; i >= 0; i--)
             {
-                InnerDict[k] = new Dictionary<string, string>(GetResultPrivate(word.Remove(i,k)));
-                numberOfElementsInDict.Add(InnerDict[k].Count);
-                k++;
-            }
+                this.MainWord = word.Remove(i, k);
+            */
+                InnerDict = new Dictionary<string, string>(GetResultPrivate(word));
+                
+            //}
             
             //Возвращаем результат если словарь пуст
             //InnerDict["Message"] = StaticString.NotFoundedEng;
 
-            return CalcBiggestDict(InnerDict,numberOfElementsInDict,word);
+            return InnerDict;
         }
         private Dictionary<string, string> CalcBiggestDict(
             Dictionary<string, string>[] resultDictionary,
@@ -46,17 +77,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                     {$"{word}", StaticString.RootWord}
                 };
             }
-
-            //I am checking if the system find out exception word or not
-            //if it found, then, it will return found word
-            return CalcEndingsGeneral.exceptionWordInt switch
-            {
-                1 => resultDictionary[0], //1 is Noun
-                2 => resultDictionary[1], //2 is Adjective
-                3 => resultDictionary[2], //3 is Verbs
-                4 => resultDictionary[3], //4 is Adverbs
-                _ => resultDictionary[t], // OR it's noun\adj
-            };
+            return resultDictionary[t];
         }
         private Dictionary<string, string> GetResultPrivate(string word)
         {
@@ -86,7 +107,11 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 resultDictionary[i] = new Dictionary<string, string>(InnerDict);
                 numberOfElementsInDict.Add(InnerDict.Count);
             }
-
+            if (GetEndingsParent.ResultNumber > 0)
+            {
+                GetEndingsParent.ResultNumber = 0;
+                return resultDictionary[2];
+            }
             return CalcBiggestDict(resultDictionary,numberOfElementsInDict,word);
         }
 

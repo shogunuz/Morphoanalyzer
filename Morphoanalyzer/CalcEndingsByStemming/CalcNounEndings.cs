@@ -25,8 +25,6 @@ namespace Morphoanalyzer.CalcEndingsByStemming
             TmpDict = new Dictionary<string, string>();
             ExceptionDict = new Dictionary<string, 
                 Dictionary<string, string>>(new ExceptionNouns().Dict);
-            KhorezmDict = new Dictionary<string,
-            Dictionary<string, string>>(new KhorezmUzbekWords().Dict);
         }
       
         public Dictionary<string, string> GetEndings()
@@ -52,7 +50,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 //1-noun, 2-adj, 3-verb, 4-adverbs
                 string rootOfWord = string.Empty;
 
-                for (int i = nounEndings.Dict.Count; i > 0; i--)
+                for (int i = 4; i > 0; i--)
                 {
                     string strKey = string.Empty;
                     string strValue = string.Empty;
@@ -65,18 +63,22 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                         mode = 0;
                     }
 
-                    foreach (KeyValuePair<string, string> kvp in nounEndings.Dict[i])
+                    foreach (KeyValuePair<string, string> kvp in nounEndings.Dict)
                     {
-                        if(KeyValue(kvp.Key, strKey, mode, this.word))
+                      
+                        if (this.word.Contains(kvp.Key))
                         {
-                            strKey = kvp.Key;
-                            strValue = kvp.Value;
-                        }
-                        if (strKey.Length > key.Length)
-                        {
-                            key = new string(strKey);
-                            value = new string(strValue);
-                        }
+                            if (KeyValue(kvp.Key, strKey, mode, this.word))
+                            {
+                                strKey = kvp.Key;
+                                strValue = kvp.Value;
+                            }
+                            if (strKey.Length > key.Length)
+                            {
+                                key = new string(strKey);
+                                value = new string(strValue);
+                            }
+                    }
                     }
 
                     if (string.IsNullOrEmpty(key) == false)

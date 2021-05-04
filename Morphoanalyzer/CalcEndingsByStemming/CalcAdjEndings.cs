@@ -27,8 +27,6 @@ namespace Morphoanalyzer.CalcEndingsByStemming
             TmpDict = new Dictionary<string, string>();
             exAdjectives = new ExceptionAdjectives();
             ExceptionDict = new Dictionary<string, Dictionary<string, string>>(exAdjectives.Dict);
-            KhorezmDict = new Dictionary<string,
-             Dictionary<string, string>>(new KhorezmUzbekWords().Dict);
 
         }
 
@@ -56,7 +54,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 //1-noun, 2-adj, 3-verb, 4-adverbs
                 string rootOfWord = string.Empty;
 
-                for (int i = adjEndings.Dict.Count; i > 0; i--)
+                for (int i = 3; i > 0; i--)
                 {
                     string strKey = string.Empty;
                     string strValue = string.Empty;
@@ -69,17 +67,20 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                         mode = 0;
                     }
 
-                    foreach (KeyValuePair<string, string> kvp in adjEndings.Dict[i])
+                    foreach (KeyValuePair<string, string> kvp in adjEndings.Dict)
                     {
-                        if (KeyValue(kvp.Key, strKey, mode, this.word))
-                        {
-                            strKey = kvp.Key;
-                            strValue = kvp.Value;
-                        }
-                        if (strKey.Length > key.Length)
-                        {
-                            key = new string(strKey);
-                            value = new string(strValue);
+                        if (this.word.Contains(kvp.Key))
+                        { 
+                            if (KeyValue(kvp.Key, strKey, mode, this.word))
+                            {
+                                strKey = kvp.Key;
+                                strValue = kvp.Value;
+                            }
+                            if (strKey.Length > key.Length)
+                            {
+                                key = new string(strKey);
+                                value = new string(strValue);
+                            }
                         }
                     }
 

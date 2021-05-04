@@ -15,21 +15,24 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 
         private string word;
         private string Originword;
-
+       
         private readonly VerbEndings verbEndings;
         private ExceptionVerbs exVerbs;
         public CalcVerbEndings(string word)
         {
             this.word = word;
-            this.Originword = word;
+            this.Originword = new string(word);
             verbEndings = new VerbEndings();
             TmpDict = new Dictionary<string, string>();
             exVerbs = new ExceptionVerbs();
             ExceptionDict = new Dictionary<string,Dictionary<string, string>>(exVerbs.Dict);
-            KhorezmDict = new Dictionary<string,
-           Dictionary<string, string>>(new KhorezmUzbekWords().Dict);
         }
-
+        private static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
         public Dictionary<string, string> GetEndings()
         {
             bool res = SearchWordFromExSet(this.word);
@@ -40,71 +43,86 @@ namespace Morphoanalyzer.CalcEndingsByStemming
             }
             else
             {
-                Dictionary<string, string> Dict = new Dictionary<string, string>();
+                NewCalc newCalc = new NewCalc();
+                Dictionary<string, string> Dict = new Dictionary<string, string>(newCalc.CalcRoot(this.word));
 
-                //if mode is 1, it means that algorithm will stem from right to left
-                //if mode is 0, the stemming algorithm will stem from left to right
-                int mode = 1;
 
-                //Данный счётчик нужен для того, чтобы определить, было ли добавлено 
-                //окончание существительного
-                int processed = 0;
-
-                //This string is used for storing root of the word
-                //1-noun, 2-adj, 3-verb, 4-adverbs
-                string rootOfWord = string.Empty;
-
-                for (int i = verbEndings.Dict.Count; i > 0; i--)
+                //Здем мы получаем размер корня слова
+                int rootWordSize = newCalc.foundKey.Length;
+                if (rootWordSize < this.word.Length)
                 {
-                    string strKey = string.Empty;
-                    string strValue = string.Empty;
-                    string key = string.Empty;
-                    string value = string.Empty;
+                    this.word = Reverse(this.word);
+                    this.word = this.word.Remove(this.word.Length - rootWordSize);
+                    this.word = Reverse(this.word);
 
-
-                    if (i == 1)
+                    string tmpV = "1", tmpK = "1";
+                    string[] listOfKeys = verbEndings.Dict.Keys.ToArray();
+                    string[] listOfValues = verbEndings.Dict.Values.ToArray();
+                    bool reska = false;
+                    for (int x = 1; x <= 3; x++)
                     {
-                        mode = 0;
+                        if (this.word.Length == 0)
+                        {
+                            break;
+                        }
+                        if (this.word.Length == 1) 
+                        { 
+                            Dict.Add(this.word, " additional ending");
+                            break;
+                        }
+                        for (int i = 2; i <= this.word.Length; i++)
+                        {
+                            string tmpStr = (i == word.Length) ? word : word.Remove(i);
+                            int k = Array.BinarySearch(listOfKeys, tmpStr);
+                            if (k >= 0)
+                            {
+                                if (tmpK.Length < listOfKeys[k].Length)
+                                {
+                                    tmpK = listOfKeys[k];
+                                    tmpV = listOfValues[k];
+                                    reska = true;
+                                }
+                            }
+                        }
+                        if (reska)
+                        {
+                            Dict.Add(tmpK, tmpV);
+                            int ws = tmpK.Length;
+                            this.word = Reverse(this.word);
+                            this.word = this.word.Remove(this.word.Length - ws);
+                            this.word = Reverse(this.word);
+                            reska = false;
+                            GetEndingsParent.ResultNumber += 1;
+                        }
+                        else 
+                        {
+                            tmpK = this.word;
+                            tmpV = "System could not analyze endings for this word";
+                            Dict.Add(tmpK, tmpV);
+                            break;
+                        }
                     }
-
-                    foreach (KeyValuePair<string, string> kvp in verbEndings.Dict[i])
-                    {
-                        if (KeyValue(kvp.Key, strKey, mode, this.word))
-                        {
-                            strKey = kvp.Key;
-                            strValue = kvp.Value;
-                        }
-                        if (strKey.Length > key.Length)
-                        {
-                            key = new string(strKey);
-                            value = new string(strValue);
-                        }
-                    }
-
-                    if (string.IsNullOrEmpty(key) == false)
-                    {
-                        processed++;
-                        Dict.Add(key, value);
-                        rootOfWord = CalcTypeofRoot.TypeOfRoot(i, 6);
-                        if (mode == 0)
-                        {
-                            //это нулевой dict, где мы удаляем не окончание, а приставку
-                            this.word = this.word.Remove(0, key.Length);
-                        }
-                        else
-                        {
-                            this.word = this.word.Remove(this.word.Length - key.Length);
-                        }
-                    }
-
                 }
 
-                if (processed > 0)
+                // Dict.Add(newCalc.foundKey, newCalc.foundValue);
+                // int sch = 0;
+                /*while (sch < 3)
                 {
-                    Dict.Add(this.word, rootOfWord);
-                    Dict.Add(this.Originword, " belongs to Verb");
-                }
-
+                    if (this.word.Length > 1)
+                    {
+                        Dictionary<string, string> InnerDict = new Dictionary<string, string>(newCalc.CalcEndings(this.word));
+                        foreach (KeyValuePair<string, string> kvp in InnerDict)
+                        {
+                            Dict.Add(kvp.Key, kvp.Value);
+                            this.word = this.word.Remove(0, newCalc.foundKey.Length);
+                        }
+                    }
+                    else
+                    {
+                        sch = 100;
+                    }
+                }*/
+                Dict.Add($"Your word - {this.Originword}", " belongs to verb");
                 return Dict;
             }
         }

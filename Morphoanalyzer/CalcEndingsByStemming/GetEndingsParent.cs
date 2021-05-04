@@ -12,7 +12,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
   
     public class GetEndingsParent
     {
-        
+        public static int ResultNumber = 0;
         public IGetEndings Parent { get; set; }
 
         public GetEndingsParent(IGetEndings parent)

@@ -17,68 +17,33 @@ namespace Morphoanalyzer.EndingsBase
         private static readonly string fromEndings = $"{TwoWords} или добавлением окончаний (-aro)";
 
 
-        public Dictionary<int, Dictionary<string, string>> Dict;
+        public Dictionary<string, string> Dict;
 
         public AdjEndings()
         {
-            Dict = new Dictionary<int, Dictionary<string, string>>
+            Dict = new Dictionary<string, string>
             {
-                {1, new Dictionary<string, string>(AdjEndsOne)},
-                {2, new Dictionary<string, string>(AdjEndsTwo)},
-                {3, new Dictionary<string, string>(AdjEndsThree)},
-                {4, new Dictionary<string, string>(AdjEndsFour)},
-                {5, new Dictionary<string, string>(AdjEndsFive)},
-                {6, new Dictionary<string, string>(AdjEndsSix)},
-                {7, new Dictionary<string, string>(AdjEndsSeven)},
-                {8, new Dictionary<string, string>(AdjEndsEight)},
-
-            };
-        }
-        private static readonly Dictionary<string, string> AdjEndsOne = new Dictionary<string, string>()
-        {
             {"xush", fromNounToAdj },
             {"bad", fromNounToAdj },
             {"ser", fromNounToAdj },
             {"ba", fromNounToAdj },
             {"be", fromNounToAdj },
-            {"bar", fromNounToAdj }
-        };
-
-        private static readonly Dictionary<string, string> AdjEndsTwo = new Dictionary<string, string>()
-         {
-            {"no", fromOthersToAdj }
-         };
-
-        private static readonly Dictionary<string, string> AdjEndsThree = new Dictionary<string, string>()
-        {
+            {"bar", fromNounToAdj },
+            {"no", fromOthersToAdj },
             {"bodom", fromSumOfNouns },
-            {"sher", fromSumOfNouns }
-        };
-
-        private static readonly Dictionary<string, string> AdjEndsFour = new Dictionary<string, string>()
-        {
-            {"qimmat", fromSumOfAdjNoun }
-        };
-
-        private static readonly Dictionary<string, string> AdjEndsFive = new Dictionary<string, string>()
-        {
+            {"sher", fromSumOfNouns },
+            {"qimmat", fromSumOfAdjNoun },
             {"tez", fromSumOfVerbNounAdv },
             {"erta", fromSumOfVerbNounAdv },
             {"umum", fromSumOfVerbNounAdv },
             {"yarim", fromSumOfVerbNounAdv },
-            {"nim", fromSumOfVerbNounAdv }
-        };
-
-        private static readonly Dictionary<string, string> AdjEndsSix = new Dictionary<string, string>()
-        {
-            {"li", fromNounToAdj },
+            {"nim", fromSumOfVerbNounAdv },
             {"lik", fromNounToAdj },
             {"siz", fromNounToAdj },
             {"iy", fromNounToAdj },
             {"viy", fromNounToAdj },
             {"gi", fromNounToAdj },
             {"ki", fromNounToAdj },
-            {"qi", fromNounToAdj},
             {"aki", fromNounToAdj },
             {"oqi", fromNounToAdj },
             {"yi", fromNounToAdj },
@@ -87,7 +52,6 @@ namespace Morphoanalyzer.EndingsBase
             {"dor", fromNounToAdj },
             {"kor", fromNounToAdj },
             {"gar", fromNounToAdj },
-            {"i", fromNounToAdj },
             {"cha", fromNounToAdj },
             {"namo", fromNounToAdj },
             {"parvar", fromNounToAdj },
@@ -108,11 +72,7 @@ namespace Morphoanalyzer.EndingsBase
             {"omuz", fromNounToAdj },
             {"xo’r", fromNounToAdj },
             {"soz", fromNounToAdj },
-            {"dek", fromNounToAdj }
-        };
-
-        private static readonly Dictionary<string, string> AdjEndsSeven = new Dictionary<string, string>()
-        {
+            {"dek", fromNounToAdj },
              {"choq", fromVerbToAdj },
              {"chack", fromVerbToAdj },
              {"chiq", fromVerbToAdj },
@@ -148,19 +108,16 @@ namespace Morphoanalyzer.EndingsBase
              {"lom", fromVerbToAdj },
              {"msiq", fromVerbToAdj },
              {"aro", fromVerbToAdj }
-           };
-        /* Exception words for AdjEndsTwo
-         * Похожие окончания
-         *   {"qoq", $"{fromVerbToAdj} tirishqoq, uyushqoq" },
-         *    {"oq", $"{fromVerbToAdj} qoloq, qochoq, qo'rqoq, baqiroq" },
-         *    
-         *    Только одна буква!
-             {"a", $"{fromVerbToAdj} ko'tara (savdo)" },
-         */
+            };
+            /* Exception words for AdjEndsTwo
+             * Похожие окончания
+             *   {"qoq", $"{fromVerbToAdj} tirishqoq, uyushqoq" },
+             *    {"oq", $"{fromVerbToAdj} qoloq, qochoq, qo'rqoq, baqiroq" },
+             *    
+             *    Только одна буква!
+                 {"a", $"{fromVerbToAdj} ko'tara (savdo)" },
+             */
+        }
 
-        private static readonly Dictionary<string, string> AdjEndsEight = new Dictionary<string, string>()
-        {
-            {"aro", fromEndings }
-        };
     }
 }

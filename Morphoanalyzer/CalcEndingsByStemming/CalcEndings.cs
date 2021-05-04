@@ -88,7 +88,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 new Dictionary<string, string>[N-1];
 
             Dictionary<string, string> InnerDict;
-
+            CalcEndingsGeneral.exceptionWordInt = 0;
             List<int> numberOfElementsInDict = new List<int>();
             GetEndingsParent[] getEnds = new GetEndingsParent[N-1];
             getEnds[0] = new GetEndingsParent(new CalcNounEndings(word));
@@ -107,9 +107,9 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                 resultDictionary[i] = new Dictionary<string, string>(InnerDict);
                 numberOfElementsInDict.Add(InnerDict.Count);
             }
-            if (GetEndingsParent.ResultNumber > 0)
+            if (CalcEndingsGeneral.exceptionWordInt == 3)
             {
-                GetEndingsParent.ResultNumber = 0;
+                CalcEndingsGeneral.exceptionWordInt = 0;
                 return resultDictionary[2];
             }
             return CalcBiggestDict(resultDictionary,numberOfElementsInDict,word);

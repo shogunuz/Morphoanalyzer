@@ -49,7 +49,14 @@ namespace Morphoanalyzer.CalcEndingsByStemming
 
                 //Здем мы получаем размер корня слова
                 int rootWordSize = newCalc.foundKey.Length;
-                if (rootWordSize < this.word.Length)
+                
+                if (Math.Abs(rootWordSize - this.word.Length) <= 1)
+                {
+                    CalcEndingsGeneral.exceptionWordInt = 3;
+                    Dict.Add($"Your word - {this.Originword}", " belongs to verb");
+                    return Dict;
+                }
+                else if (rootWordSize < this.word.Length)
                 {
                     this.word = Reverse(this.word);
                     this.word = this.word.Remove(this.word.Length - rootWordSize);
@@ -92,7 +99,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                             this.word = this.word.Remove(this.word.Length - ws);
                             this.word = Reverse(this.word);
                             reska = false;
-                            GetEndingsParent.ResultNumber += 1;
+                            CalcEndingsGeneral.exceptionWordInt = 3;
                         }
                         else 
                         {
@@ -103,25 +110,6 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                         }
                     }
                 }
-
-                // Dict.Add(newCalc.foundKey, newCalc.foundValue);
-                // int sch = 0;
-                /*while (sch < 3)
-                {
-                    if (this.word.Length > 1)
-                    {
-                        Dictionary<string, string> InnerDict = new Dictionary<string, string>(newCalc.CalcEndings(this.word));
-                        foreach (KeyValuePair<string, string> kvp in InnerDict)
-                        {
-                            Dict.Add(kvp.Key, kvp.Value);
-                            this.word = this.word.Remove(0, newCalc.foundKey.Length);
-                        }
-                    }
-                    else
-                    {
-                        sch = 100;
-                    }
-                }*/
                 Dict.Add($"Your word - {this.Originword}", " belongs to verb");
                 return Dict;
             }

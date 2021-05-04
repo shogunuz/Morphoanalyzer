@@ -20,6 +20,7 @@ namespace Morphoanalyzer.CalcEndingsByStemming
       
         protected bool SearchWordFromExSet(string word)
         {
+            //GetEndingsParent.ResultNumber = 0;
 
             //We define string array and set a value to it (keys of ExceptionDict)
             string[] listOfKeys = ExceptionDict.Keys.ToArray();

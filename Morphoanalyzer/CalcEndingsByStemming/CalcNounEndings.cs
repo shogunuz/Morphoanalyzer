@@ -57,12 +57,12 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                     string key = string.Empty;
                     string value = string.Empty;
 
-
+/*
                     if (i == 1)
                     {
                         mode = 0;
                     }
-
+*/
                     foreach (KeyValuePair<string, string> kvp in nounEndings.Dict)
                     {
                       

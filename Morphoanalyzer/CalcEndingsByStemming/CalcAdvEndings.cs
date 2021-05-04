@@ -58,10 +58,10 @@ namespace Morphoanalyzer.CalcEndingsByStemming
                     string value = string.Empty;
 
 
-                    if (i == 1)
+                 /*   if (i == 1)
                     {
                         mode = 0;
-                    }
+                    }*/
 
                     foreach (KeyValuePair<string, string> kvp in advEndings.Dict)
                     {

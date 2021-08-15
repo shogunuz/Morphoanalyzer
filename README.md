@@ -1,3 +1,30 @@
+As soon as we start IIS Express, the default controller window (Weather) will open.
+This is done in order to check if the server is running or not. It is planned to replace the weather controller by other one.
+
+The system works according to the following principle:
+A word (data type: string) is sent to the server, then, the system starts
+searching for this word in the Exception dataset. There are around 10 datasets in total.
+First 8 are datasets of main parts of speech (Nouns - Exception Nouns, Verbs - Exception Verbs and e.g.)
+Datesets have not been migrated to SQL version yet, due to some technical problems.
+
+Returning to the algorithm of the system, as soon as the system receives a word, first it looks for it
+in exception datasets, if it finds it, it will return the result. However, if it doesn't find sent word in exception datasets, then it will run the algorithm in order to 
+truncate the endings to find the root of the word. Separate classes are created for each part of speech,
+which inherit from the main class. In general, the relationship between classes is implemented using
+design pattern SOLID (mostly for using Depend. inj). It helps to scale the project to the extent required.
+
+So, as soon as the original (sent) word is truncated by classes of parts of speech, the system analyzes in which
+class revealed the most truncated endings. Depending on the number of truncated endings,
+the system decides which part of speech this word belongs to. And all the truncated endings and
+the root of the word is placed in a Dictionary, then serialized to json format and sent
+back to the client (frontend). It should be that algorithm can truncatinate sent word 3 times for each part of speech.
+What I mean by this is that Noun and Verb cannot have more than 3 affixes, while adjectives and adverbs only 2. 
+For instance (Noun): 
+We send word 'bolalarimizning' - Analyzed version 'bola' + 'lar' + 'imiz' + 'ning'. In this case we have a root and 3 affixes.
+
+
+
+Русская версия...
 Сразу после запуска IIS Express вам откроется окошко контроллера по-умолчанию (Weather).
 Это сделано для того, чтобы проверить, работает ли сервер или нет. В будущем, он будет
 обязательно заменен  другим контроллером.
@@ -25,3 +52,4 @@
 
 Планы:
 ........
+
